@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[TodoItem]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Title] NCHAR(50) NOT NULL, 
+    [IsDone] BIT NOT NULL
+)

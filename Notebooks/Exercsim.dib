@@ -1,0 +1,950 @@
+#!csharp
+
+using System;
+
+public static class ReverseString
+{
+    public static string Reverse(string input) => 
+        new string(input.ToCharArray().Reverse().ToArray());
+}
+
+Console.WriteLine(ReverseString.Reverse("robot"));
+
+#!csharp
+
+using System;
+
+public static class Pangram
+{
+    public static bool IsPangram(string input)
+    {
+        char[] abc =  "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+        foreach (char letter in abc)
+        {
+            if (!input.Contains(letter, StringComparison.OrdinalIgnoreCase))
+                return false;
+        }
+
+        return true;
+    }
+}
+
+var test = Pangram.IsPangram("test");
+Console.WriteLine(test);
+
+#!csharp
+
+using System.Linq;
+
+public class Pangram
+{
+    const string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    public static bool IsPangram(string input)
+    {
+        return alphabet.All(input.ToLower().Contains);
+    }
+}
+
+var test = Pangram.IsPangram("test");
+Console.WriteLine(test);
+
+#!csharp
+
+using System;
+
+public static class Isogram
+{
+    public static bool IsIsogram(string word) 
+    {
+        char[] chars = {'-', ' '};
+        word = word.ToLower();
+        var test = (word.Where(c => !chars.Contains(c)).ToArray());
+      
+        return test.Distinct().Count() == test.Length;
+    }
+    
+}
+
+var test = Isogram.IsIsogram("test-arlo");
+Console.WriteLine(test);
+
+#!csharp
+
+using System.Linq;
+
+public static class Isogram
+{
+    public static bool IsIsogram(string word) 
+    {
+        var lowerLetters = word.ToLower().Where(char.IsLetter).ToList();
+        return lowerLetters.Distinct().Count() == lowerLetters.Count;
+    }
+}
+
+var test = Isogram.IsIsogram("test-arlo");
+Console.WriteLine(test);
+
+#!csharp
+
+public enum Classification
+{
+    Perfect,
+    Abundant,
+    Deficient
+}
+
+public static class PerfectNumbers
+{
+    private static IEnumerable<int> Factors(int number) =>
+        Enumerable.Range(1, number / 2).Where(i => number % i == 0);
+    
+    public static Classification Classify(int number) => Factors(number).Sum() switch
+    {
+        int sum when sum == number => Classification.Perfect,
+        int sum when sum < number => Classification.Abundant,
+        int sum when sum > number => Classification.Deficient,
+        _ => throw new ArgumentOutOfRangeException(),
+    };
+}
+
+var result = PerfectNumbers.Classify(12);
+Console.WriteLine(result);
+
+#!csharp
+
+using System;
+
+public class SpaceAge
+{
+    private readonly int _seconds;
+
+    public SpaceAge(int seconds) => _seconds = seconds;
+    public double OnEarth() => (double)_seconds / 31557600;
+    public double OnMercury() => OnEarth() / 0.2408467;
+    public double OnVenus() => OnEarth() /0.61519726;
+    public double OnMars() => OnEarth() / 1.8808158;
+    public double OnJupiter() => OnEarth() / 11.862615;
+    public double OnSaturn() => OnEarth() / 29.447498;
+    public double OnUranus() => OnEarth() / 84.016846;
+    public double OnNeptune() => OnEarth() / 164.79132;
+}
+
+var sut = new SpaceAge(1000000000);
+Console.WriteLine(sut.OnEarth());
+
+#!csharp
+
+using System;
+
+public static class Bob
+{
+    public static string Response(string statement)
+    {
+        throw new NotImplementedException("You need to implement this function.");
+        // questions => "Sure."
+        // caps => "Whoa, chill out!"
+        // caps & question => "Calm down, I know what I'm doing!"
+        // address? whitspeace at beginning and /t /n => "Fine. Be that way!"
+        // default => Whatever
+    }
+}
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Bob
+{
+    private static bool IsSilence(this string message) =>
+        string.IsNullOrWhiteSpace(message);
+        
+    private static bool IsYell(this string message) =>
+        message.Any(char.IsLetter) && message.ToUpperInvariant() == message;
+
+    private static bool IsQuestion(this string message) =>
+        message.TrimEnd().EndsWith("?");
+
+    public static string Response(string statement) => statement switch
+    {
+        string s when s.IsYell() && s.IsQuestion() => "Calm down, I know what I'm doing!",
+        string s when s.IsQuestion() => "Sure.",
+        string s when s.IsYell() => "Whoa, chill out!",
+        string s when s.IsSilence() => "Fine. Be that way!",
+        _ => "Whatever.",
+    };
+}
+
+Bob.Response("Tom-ay-to, tom-aaaah-to.") == "Whatever."
+
+#!csharp
+
+using System;
+
+public static class Darts
+{
+    private static double Radius(double x, double y) => Math.Sqrt(x*x + y*y);
+
+    public static int Score(double x, double y) => Radius(x, y) switch
+    {
+        <=  1.0 => 10,
+        <=  5.0 => 5,
+        <= 10.0 => 1,
+        _ => 0
+    };
+}
+
+#!csharp
+
+using System.Diagnostics;
+using System.Text;
+public static class RotationalCipher
+{
+    public static string Rotate(string text, int shiftKey)
+    {
+      shiftKey = shiftKey % 26;
+      var rotated = new StringBuilder(text.Length);
+      foreach(var character in text)
+      {
+        rotated.Append(Rotate(character, shiftKey));
+      }
+      return rotated.ToString();
+    }
+    
+    private static char Rotate(char c, int shiftKey)
+    {
+      // pre-conditions
+      Debug.Assert(0 <= shiftKey && shiftKey < 26);
+      if(c >= 'a' && c <= 'z')
+        return (char)(((int)(c - 'a') + shiftKey) % 26 + 'a');
+      else if(c >= 'A' && c <= 'Z')
+        return (char)(((int)(c - 'A') + shiftKey) % 26 + 'A');
+      else
+        return c;
+    }
+}
+
+#!csharp
+
+using System;
+using System.Linq;
+
+public static string RotateTest(string text, int shiftKey)
+{
+    return string.Concat(text.Select(c =>
+    {
+        if (char.IsLetter(c))
+        {
+            char offset = char.IsUpper(c) ? 'A' : 'a';
+            char newChar = (char)(c + shiftKey % 26);
+            return (newChar - offset) < 26 ? newChar : (char)(newChar - 26);
+        }
+        return c;
+    }));
+}
+
+#!csharp
+
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+public class Acronym
+{
+    public static string Abbreviate1(string phrase) => 
+        string.Concat(phrase.Where(c => char.IsLetter(c) && char.IsUpper(c)));
+
+    public static string Abbreviate2(string phrase)
+    {
+        StringBuilder stringBuilder = new();
+        var split = phrase.Split(' ');
+        foreach (var word in split)
+        {
+            if (char.IsLetter(word[0]))
+                stringBuilder.Append(char.ToUpper(word[0]));
+        }
+
+        return stringBuilder.ToString().Trim();
+    }
+
+    public static string Abbreviate3(string phrase) => 
+        string.Concat(
+           Regex.Split(phrase, "[^A-Za-z']+")
+                .Select(word => char.ToUpper(word[0])));
+    
+}
+
+#!csharp
+
+using System;
+using System.Linq;
+
+public class Anagram
+{
+    private readonly string _baseWord;
+
+    public Anagram(string baseWord) => 
+        _baseWord = baseWord;
+
+    public bool IsAnagram(string word) => 
+        word.ToLower() != _baseWord.ToLower() && 
+        string.Concat(_baseWord.ToLower().OrderBy(c => c)) == string.Concat(word.ToLower().OrderBy(c => c));
+
+    public string[] FindAnagrams(string[] potentialMatches) => 
+        potentialMatches.Where(word => IsAnagram(word)).ToArray();
+}
+
+#!csharp
+
+using System;
+using System.Linq;
+
+public static class RunLengthEncoding
+{
+    public static string Encode1(string input) =>string.Concat(
+        input.GroupBy(n => n).Select(group => group.Count() > 1 ? $"{group.Count()}{group.Key}" : $"{group.Key}"));
+    
+    
+    public static string Encode(string input)
+    {
+        StringBuilder stringBuilder = new();
+        char current = input[0];
+        int counter = 1;
+        foreach (char c in input)
+        {
+            if (c == current)
+                counter++;
+            else
+            {
+                var section = counter > 1 ? $"{counter}{c}" : $"{c}";
+                stringBuilder.Append(section);
+                counter = 1;
+                current = c;
+            }
+        }
+        return stringBuilder.ToString();
+    }
+
+    public static string Decode(string input)
+    {
+        throw new NotImplementedException("You need to implement this function.");
+    }
+}
+
+var test = RunLengthEncoding.Encode("AABCCCDEEEE");
+Console.WriteLine(test == "2AB3CD4E");
+Console.WriteLine(test);
+
+#!csharp
+
+using System;
+
+public static class Leap
+{
+    public static bool IsLeapYear(int year) => 
+        year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+}
+
+#!csharp
+
+using System;
+
+public static class Triangle
+{
+    private static bool IsTriangle(double side1, double side2, double side3) => 
+        side1 + side2 > side3 && side1 + side3 > side2 && side2 + side3 > side1;
+
+    public static bool IsEquilateral(double side1, double side2, double side3) => 
+        IsTriangle(side1, side2, side3) && side1 == side2 && side2 == side3;
+
+    public static bool IsIsosceles(double side1, double side2, double side3) => 
+        IsTriangle(side1, side2, side3) && (side1 == side2 || side2 == side3 || side1 == side3);
+        
+    public static bool IsScalene(double side1, double side2, double side3) => 
+        IsTriangle(side1, side2, side3) && (side1 != side2 && side2 != side3 && side1 != side3);
+}
+
+#!csharp
+
+using System;
+
+public static class Raindrops
+{
+    public static string Convert(int number)
+    {
+        StringBuilder stringBuilder = new();
+
+        if (number % 3 == 0)
+            stringBuilder.Append("Pling");
+
+        if (number % 5 == 0)
+            stringBuilder.Append("Plang");
+
+        if (number % 7 == 0)
+            stringBuilder.Append("Plong");
+
+        if (string.IsNullOrEmpty(stringBuilder.ToString()))
+            stringBuilder.Append(number);
+
+        return stringBuilder.ToString();
+    }
+}
+
+#!csharp
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public class SimpleLinkedList<T> : IEnumerable<T>
+{
+    public T Value { get; }
+    public SimpleLinkedList<T> Next { get; private set; }
+    public SimpleLinkedList(T value) => Value = value;
+
+    public SimpleLinkedList(IEnumerable<T> values) : this(values.First())
+    {
+        foreach (var value in values.Skip(1))
+        {
+            Add(value);
+        }
+    }
+
+    public SimpleLinkedList<T> Add(T value)
+    {
+        var current = this;
+        while (current.Next != null)
+        {
+            current = current.Next;
+        }
+        current.Next = new SimpleLinkedList<T>(value);
+        return this;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        var current = this;
+        while (current != null)
+        {
+            yield return current.Value;
+            current = current.Next;
+        }
+    }
+    
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class SumOfMultiples
+{
+    public static int Sum(IEnumerable<int> multiples, int max) =>
+        Enumerable.Range(0, max).Where(n => multiples.Where(x => x > 0).Any(m => n % m == 0)).Sum();
+}
+
+var test = SumOfMultiples.Sum(new[]{3, 0}, 4);
+Console.WriteLine(test);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class DifferenceOfSquares
+{
+    public static int CalculateSquareOfSum(int max) => 
+        (int) Math.Pow(Enumerable.Range(1, max).Sum(), 2.0);
+
+    public static int CalculateSumOfSquares(int max) => 
+        (int) Enumerable.Range(1, max).Select(x => Math.Pow(x, 2.0)).Sum();
+
+    public static int CalculateDifferenceOfSquares(int max) => 
+        CalculateSquareOfSum(max) - CalculateSumOfSquares(max);
+}
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Robot
+{
+    private static readonly Random _random = new();
+    private static readonly string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static readonly string _digits = "0123456789";
+
+    private static readonly HashSet<string> _usedNames = new();
+
+    public string? Name { get; private set; }
+
+
+    public Robot() => SetRobotName();
+
+    public void Reset() => SetRobotName();
+
+    // helper
+    private void SetRobotName() => Name = NewUniqueName();
+
+    private static string RandomString(string charactersToUse, int numberOfCharacters) =>
+        new(Enumerable.Repeat(charactersToUse, numberOfCharacters)
+        .Select(s => s[_random.Next(s.Length)])
+        .ToArray());
+
+    private static bool IsNameUnique(string name) => _usedNames.Add(name);
+
+    private string NewUniqueName()
+    {
+        string newName = NewName();
+        return (IsNameUnique(newName)) ? newName : NewUniqueName();
+    }
+
+    private static string NewName() => RandomString(_letters, 2) + RandomString(_digits, 3);
+}
+
+Robot test = new();
+Console.WriteLine(test.Name);
+
+#!csharp
+
+Random rnd = new Random();
+//char randomChar = (char)rnd.Next('A','Z'); 
+
+char char1 = (char)rnd.Next('A','Z'); 
+char char2 = (char)rnd.Next('A','Z'); 
+int number = (int)rnd.Next(100, 999);
+
+
+Console.WriteLine(randomChar);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class ProteinTranslation
+{
+    private static IEnumerable<string> ChunkBySize(this string input, int size)
+    {
+        for (var i = 0; i < input.Length; i += size)
+            yield return input[i .. (i + size)];
+    }
+
+    private static string TranslateProtein(string input) => input switch
+    {
+        "AUG" => "Methionine",
+        "UUU" => "Phenylalanine",
+        "UUC" => "Phenylalanine",
+        "UUA" => "Leucine",
+        "UUG" => "Leucine",
+        "UCU" => "Serine",
+        "UCC" => "Serine",
+        "UCA" => "Serine",
+        "UCG" => "Serine",
+        "UAU" => "Tyrosine",
+        "UAC" => "Tyrosine",
+        "UGU" => "Cysteine",
+        "UGC" => "Cysteine",
+        "UGG" => "Tryptophan",
+        "UAA" => "STOP",
+        "UAG" => "STOP",
+        "UGA" => "STOP",
+        _ => throw new Exception("Invalid sequence")
+    };
+    
+    public static string[] Proteins(string strand) =>
+        strand.ChunkBySize(3)
+              .Select(chunk => TranslateProtein(chunk))
+              .TakeWhile(protein => protein != "STOP").ToArray();
+}
+
+#!csharp
+
+string test = "thisTest";
+test.Select(x => x);
+
+#!csharp
+
+using System;
+
+public static class Gigasecond
+{
+    public static DateTime Add(DateTime moment) => moment.AddSeconds(1000000000);
+}
+
+#!csharp
+
+using System;
+
+public static class ResistorColor
+{
+    public static int ColorCode(string color) => 
+        Array.IndexOf(Colors(), color);
+
+    public static string[] Colors() => new [] { 
+        "black",
+        "brown",
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "violet",
+        "grey",
+        "white"
+    };
+}
+
+#!csharp
+
+static readonly HashSet<string> _usedNames = new();
+_usedNames.Add("test");
+_usedNames.Add("test");
+
+#!csharp
+
+using System;
+
+public static class Series
+{
+    public static string[] Slices(string numbers, int sliceLength)
+    {
+        if (sliceLength <= 0 || sliceLength > numbers.Length || string.IsNullOrEmpty(numbers))
+            throw new System.ArgumentException();
+
+        List<string> result = new(); 
+        for (var i = 0; i < numbers.Length; i++)
+        {
+            if (i + sliceLength <= numbers.Length)
+                result.Add(numbers.Substring(i, sliceLength));
+        }
+        return result.ToArray();
+    }
+}
+
+var test = Series.Slices("9142", 2);
+foreach (string item in test)
+{
+    Console.WriteLine(item);
+}
+
+#!csharp
+
+using System;
+
+public static class BinarySearch
+{
+    public static int Find(int[] input, int value)
+    {
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (input[i] == value)
+                return i;
+        }
+
+        return 0;
+    }
+}
+
+var array = new[] { 1, 3, 4, 6, 8, 9, 11 };
+var value = 6;
+
+3 == BinarySearch.Find(array, value)
+
+#!csharp
+
+#r "Microsoft.Extensions.Caching.StackExchangeRedis"
+
+// add to service container
+services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = Configuration.GetConnectionString("Redis");
+    options.Instance = "RedisDemo_";
+});
+
+IDistributedCache cache = new();
+cache.StringGet("someValue").ToString();
+cache.StringSet("someValue", "kek");
+cache.StringGet("someValue").ToString();
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class HighScores
+{
+    private readonly List<int> _list;
+
+    public HighScores(List<int> list) => _list = list;
+
+    public List<int> Scores() => _list;
+    
+    public int Latest() => _list.Last();
+
+    public int PersonalBest() => _list.Max();
+
+    public List<int> PersonalTopThree() => _list.OrderByDescending(x => x).Take(3).ToList();
+}
+
+#!csharp
+
+using System;
+
+public static class ArmstrongNumbers
+{
+    public static bool IsArmstrongNumber(int number) =>
+        number == number.ToString()
+                        .Select(x => Math.Pow(double.Parse(x.ToString()), number.ToString().Length))
+                        .Sum();
+    
+}
+
+ArmstrongNumbers.IsArmstrongNumber(9)
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class ResistorColorDuo
+{
+    public static int Value(string[] colors) => 
+        Convert.ToInt32(string.Concat(colors.Take(2).Select(x => Array.IndexOf(Colors(), x))));
+
+    public static string[] Colors() => new [] { 
+        "black",
+        "brown",
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "violet",
+        "grey",
+        "white"
+    };
+}
+
+var test = ResistorColorDuo.Value(new[] { "brown", "black" });
+Console.WriteLine(test);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class DndCharacter
+{
+    public int Strength { get; }
+    public int Dexterity { get; }
+    public int Constitution { get; }
+    public int Intelligence { get; }
+    public int Wisdom { get; }
+    public int Charisma { get; }
+    public int Hitpoints { get; }
+
+    private readonly static Random _rand = new();
+
+    public DndCharacter(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma)
+    {
+        Strength = strength;
+        Dexterity = dexterity;
+        Constitution = constitution;
+        Intelligence = intelligence;
+        Wisdom = wisdom;
+        Charisma = charisma;
+        Hitpoints = 10 + Modifier(constitution);
+    }
+
+    public static int Modifier(int score) => 
+        (int)Math.Floor( (double)(score-10)/2 );    
+
+    public static int Ability() =>
+        Enumerable.Range(1, 4)
+                  .Select(r => _rand.Next(1, 7))
+                  .OrderByDescending(r => r)
+                  .Take(3)
+                  .Sum();
+
+    public static DndCharacter Generate() => 
+        new(Ability(), Ability(), Ability(), Ability(), Ability(), Ability());
+}
+
+#!csharp
+
+//private static int RollDie() => _rand.Next(1, 7);
+var test = Enumerable.Range(1, 4).Select(x => 4).Sum();
+Console.WriteLine(test);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+
+public static class PythagoreanTriplet
+{
+    public static IEnumerable<(int a, int b, int c)> TripletsWithSum(int sum)
+    {
+        List<(int, int, int)> results = new();
+        for (int i = 1; i <= sum / 3; i++)
+        { 
+            for (int j = i + 1; j <= sum / 2; j++)
+            {
+                int k = sum - i - j;
+                if (i * i + j * j == k * k)
+                {
+                    results.Add((i, j, k));
+                }
+            }
+        }
+        return results;
+    }
+    
+    public static IEnumerable<(int a, int b, int c)> TripletsWithSum2(int sum)
+    {
+        for (int i = 1; i <= sum / 3; i++)
+        { 
+            for (int j = i + 1; j <= sum / 2; j++)
+            {
+                int k = sum - i - j;
+                if (i * i + j * j == k * k)
+                {
+                    yield return (i, j, k);
+                }
+            }
+        }
+    }
+}
+
+// (3, 4, 5) 
+PythagoreanTriplet.TripletsWithSum(12);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class GradeSchool
+{
+    private readonly Dictionary<string, int> _students = new();
+
+    public void Add(string student, int grade) => _students.Add(student, grade);
+
+    public IEnumerable<string> Roster() =>
+        _students.OrderBy(student => student.Key)
+                .OrderBy(student => student.Value)
+                .Select(student => student.Key)
+                .ToList();
+
+    public IEnumerable<string> Grade(int grade) =>
+        _students.Where(student => student.Value == grade)
+                .Select(student => student.Key)
+                .OrderBy(student => student);
+}
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class NucleotideCount
+{
+    public static IDictionary<char, int> Count(string sequence)
+    {
+        if (!sequence.All("ACGT".Contains))
+            throw new ArgumentException();
+        
+        return (sequence + "ACGT").GroupBy(x => x)
+                                  .ToDictionary(grp => grp.Key, grp => grp.Count() - 1);
+    }
+}
+
+#!csharp
+
+string sequence = "GGGGGGG";
+var test = sequence.GroupBy(x => x)
+                   .Select(group => group.Count());
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public enum Allergen
+{
+    Eggs,
+    Peanuts,
+    Shellfish,
+    Strawberries,
+    Tomatoes,
+    Chocolate,
+    Pollen,
+    Cats
+}
+
+public class Allergies
+{
+    private readonly int _mask;
+   
+    public Allergies(int mask) => 
+        _mask = mask;
+    
+    public bool IsAllergicTo(Allergen allergen) => 
+        ((_mask >> (int)allergen) & 1) == 0 ? false : true;
+
+    public Allergen[] List() =>
+        Enumerable.Range(0, 8)
+                  .Where(i => ((_mask >> i) & 1) == 1)
+                  .Select(index => (Allergen)index)
+                  .ToArray();
+
+}
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Proverb
+{
+    public static string[] Recite(string[] subjects)
+    {
+        List<string> result = new();
+
+        if (subjects.Length > 1)
+        {
+            for (int i = 0; i < subjects.Length - 1; i++)
+                result.Add($"For want of a {subjects[i]} the {subjects[i+1]} was lost.");
+        }
+
+        result.Add($"And all for the want of a {subjects[0]}.");
+
+        return result.ToArray();
+    }
+
+    public static string[] Recite2(string[] subjects) =>
+        subjects.Length == 0
+            ? new string[]{}
+            : Enumerable
+                .Range(0, subjects.Length - 1)
+                .Select(index => 
+                    $"For want of a {subjects[index]} the {subjects[index + 1]} was lost.")
+                .Append($"And all for the want of a {subjects[0]}.")
+                .ToArray();
+    }

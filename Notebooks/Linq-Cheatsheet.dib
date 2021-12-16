@@ -1,0 +1,138 @@
+#!markdown
+
+# Language-Integrated Query (LINQ)
+Language-Integrated Query (LINQ) provides language-level querying capabilities, and a higher-order function API to C#, that enable you to write expressive declarative code.
+
+[LINQ in C# Reference](https://docs.microsoft.com/en-us/dotnet/csharp/linq/linq-in-csharp)
+
+
+| Method	    | Function  |
+| -----         | -----     |
+| Where	        | Filter a collection |
+| Select	    | Transform every element of a collection |
+| Any	        | Check if a collection is empty |
+| All	        | Check if every element satisfies a condition |
+| Count	        | Count all elements of a collection |
+| Distinct	    | Find the unique elements of a collection |
+| GroupBy	    | Group the elements of a collection based on a key |
+| OrderBy	    | Sort a collection based on a key |
+| First	        | Find the first element of a collection. Throw if the collection is empty |
+| FirstOrDefault |	Same as First, but it returns a default value if it’s empty |
+| Last	        | Find the last element of a collection. Throw if the collection is empty |
+| LastOrDefault	| It returns a default value if it’s empty, instead |
+| Single	    | Find only one element in a collection matching a condition. Throw, otherwise |
+| SingleOrDefault |	It returns a default value if there isn’t one matching element, instead |
+| Take	        | Pick the first n consecutive elements of a collection |
+| TakeWhile	    | Pick the first consecutive elements that satisfy a condition |
+| Skip	        | Return a collection without the first n consecutive elements |
+| SkipWhile	    | Return a collection without the first consecutive elements that satisfy a condition |
+| Sum	        | Sum the elements of a collection |
+| Min, Max	    | Find the smallest and largest element of a collection |
+| ToDictionary	| Convert a collection into a dictionary |
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public record Movie(string Name, int ReleaseYear, float Rating);
+
+public class Demo
+{
+    public static void ShowResult(IEnumerable<Movie> result)
+    {
+        foreach (Movie movie in result)
+        {
+            Console.WriteLine(movie.Name);
+        }
+    }
+
+    public static void ShowName(IEnumerable<string> names)
+    {
+        foreach (string name in names)
+        {
+            Console.WriteLine(name);
+        }
+    }
+}
+
+#!csharp
+
+// setup data
+new List<Movie> movies = new()
+{
+    new Movie("Titanic", 1998, 4.5f),
+    new Movie("The Fifth Element", 1995, 4.6f),
+    new Movie("Terminator 2", 1999, 4.7f),
+    new Movie("Avatar", 2010, 5),
+    new Movie("Platoon", 1986, 4),
+    new Movie("My Neighbor Totoro", 1988, 5)
+};
+
+#!csharp
+
+// method: Where() => filter a collection
+var favorites = movies.Where(movie => movie.Rating > 4.5);
+Demo.ShowResult(favorites);
+
+#!csharp
+
+// method: Select() => you can transform every element of a collection
+var favorites = movies.Where(movie => movie.Rating > 4.7)
+                      .Select(movie => movie.Name);
+
+Demo.ShowName(favorites);
+
+#!csharp
+
+// method: Any() => method check if a collection is empty
+// Tip: Do movies.Any() instead of movies.Count() > 0
+var hasAnyMovies = movies.Any();
+// true
+
+var hasBadMovies = movies.Any(movie => movie.Rating < 2);
+// false
+
+#!csharp
+
+// method: All() => check if every elements inside a collection matches a condition
+var weHaveSeenReallyGoodMovies = movies.All(movie => movie.Rating >= 4.5);
+// false
+
+#!csharp
+
+// method: GroupBy() => groups the elements of a collection based on a key
+var groupedByRating = movies.GroupBy(movie => movie.Rating);
+
+foreach (var group in groupedByRating)
+{
+    Console.WriteLine($"Rating: {group.Key}");
+
+    foreach (var movie in group)
+    {
+        Console.WriteLine($"{movie.Name}");
+    }
+    Console.WriteLine();
+}
+
+#!csharp
+
+// allows you to transform each group
+var groupedByRating = movies.GroupBy(
+    movie => movie.Rating,
+    (rating, movies) => new { Rating = rating, Count = movies.Count() });
+
+foreach (var group in groupedByRating)
+{
+    Console.WriteLine($"{group.Rating}: [{group.Count}]");
+}
+
+#!csharp
+
+// method: First/FirstOrDefault() => return the first element in a collection
+var oldest = movies.OrderBy(movie => movie.ReleaseYear)
+                   .First();
+
+// single object no IEnumerable
+Console.WriteLine(oldest.Name);
