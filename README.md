@@ -1,2 +1,2 @@
-# .Net
+# .NET
 .NET C# code samples
