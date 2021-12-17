@@ -1009,3 +1009,64 @@ public static class RomanNumeralExtension
         return number.ToString();
     }
 }
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public enum Schedule
+{
+    Teenth,
+    First,
+    Second,
+    Third,
+    Fourth,
+    Last
+}
+
+public class Meetup
+{
+    private readonly int _month;
+    private readonly int _year;
+
+    public Meetup(int month, int year)
+    {
+        _month = month; 
+        _year = year;
+    }
+
+    public static IEnumerable<DateTime> AllDatesInMonth(int year, int month)
+    {
+        int days = DateTime.DaysInMonth(year, month);
+        for (int day = 1; day <= days; day++)
+            yield return new DateTime(year, month, day);
+    }
+
+    public static IEnumerable<DateTime> AllDatesInMonthWithLinq(int year, int month) =>
+       Enumerable.Range(1, DateTime.DaysInMonth(year, month))
+                 .Select(day => new DateTime(year, month, day));
+
+    public DateTime Day(DayOfWeek dayOfWeek, Schedule schedule)
+    {    
+        var days = AllDatesInMonth(_year, _month).Where(i => i.DayOfWeek == dayOfWeek);
+        return schedule switch
+        {
+            Schedule.First => days.FirstOrDefault(),
+            Schedule.Second => days.ElementAt(1),
+            Schedule.Third => days.ElementAt(2),
+            Schedule.Fourth => days.ElementAt(3),
+            Schedule.Teenth => days.Where(dt => dt.Day >= 13 && dt.Day <= 19).FirstOrDefault(),
+            Schedule.Last => days.LastOrDefault(),
+            _ => throw new Exception("Invalid schedule")
+        };
+    }
+}
+
+// test
+var sut = new Meetup(5, 2013);
+var expected = new DateTime(2013, 5, 13);
+var actual = sut.Day(DayOfWeek.Monday, Schedule.Teenth);
+
+Console.WriteLine(actual.ToString());
