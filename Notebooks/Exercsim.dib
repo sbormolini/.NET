@@ -1070,3 +1070,16 @@ var expected = new DateTime(2013, 5, 13);
 var actual = sut.Day(DayOfWeek.Monday, Schedule.Teenth);
 
 Console.WriteLine(actual.ToString());
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Etl
+{
+    public static Dictionary<string, int> Transform(Dictionary<int, string[]> old) => 
+        old.SelectMany(i => i.Value, (i, letter) => (letter, i.Key))
+           .ToDictionary(l => l.letter.ToLower(), l => l.Key);
+}
