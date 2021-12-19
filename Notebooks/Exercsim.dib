@@ -1083,3 +1083,19 @@ public static class Etl
         old.SelectMany(i => i.Value, (i, letter) => (letter, i.Key))
            .ToDictionary(l => l.letter.ToLower(), l => l.Key);
 }
+
+Dictionary<int, string[]> input = new()
+{
+    [1] = new[] { "A", "E" },
+    [2] = new[] { "D", "G" }
+};
+
+Dictionary<string, int> expected = new()
+{
+    ["a"] = 1,
+    ["d"] = 2,
+    ["e"] = 1,
+    ["g"] = 2
+};
+
+var actual = Etl.Transform(input);
