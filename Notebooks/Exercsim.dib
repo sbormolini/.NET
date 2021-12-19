@@ -1099,3 +1099,30 @@ Dictionary<string, int> expected = new()
 };
 
 var actual = Etl.Transform(input);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class RnaTranscription
+{
+    private static char Translate(char value) => value switch
+    {
+        'G' => 'C',
+        'C' => 'G',
+        'T' => 'A',
+        'A' => 'U',
+        _ => throw new ArgumentOutOfRangeException("Invalid nucleotides")
+    };
+
+    public static string ToRna(string nucleotide) => 
+        string.IsNullOrEmpty(nucleotide) 
+            ? "" 
+            : new string(nucleotide.Select(ch => Translate(ch)).ToArray());
+}
+
+// char - test
+var actual = RnaTranscription.ToRna("");
+Console.WriteLine(actual);
