@@ -136,3 +136,17 @@ var oldest = movies.OrderBy(movie => movie.ReleaseYear)
 
 // single object no IEnumerable
 Console.WriteLine(oldest.Name);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+int[] range = {1,2,3};
+
+range = range.Reverse().ToArray();
+
+// output
+foreach (int value in range)
+    Console.WriteLine(value);
