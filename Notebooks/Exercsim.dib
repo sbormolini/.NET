@@ -1206,11 +1206,23 @@ public static class BeerSong
 
 #!csharp
 
-private static char Translate(char value) => value switch
-    {
-        'G' => 'C',
-        'C' => 'G',
-        'T' => 'A',
-        'A' => 'U',
-        _ => throw new ArgumentOutOfRangeException("Invalid nucleotides")
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class ScrabbleScore
+{
+    private static Dictionary<string, int> _letterValues = new() {
+        {"AEIOULNRST", 1},
+        {"DG", 2},
+        {"BCMP", 3},
+        {"FHVWY", 4},
+        {"K", 5},
+        {"JX", 8},
+        {"QZ", 10}
     };
+
+    public static int Score(string input) =>
+        input.Select(c => _letterValues.First(kvp => kvp.Key.Contains(char.ToUpper(c))).Value)
+             .Sum();
+}
