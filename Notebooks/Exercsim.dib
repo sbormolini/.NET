@@ -1225,3 +1225,45 @@ public static class ScrabbleScore
         input.Select(c => _letterValues.First(kvp => kvp.Key.Contains(char.ToUpper(c))).Value)
              .Sum();
 }
+
+#!csharp
+
+using System;
+using System.Text.RegularExpressions;
+
+public class PhoneNumber
+{
+    private static readonly string _NANPFormat = @"^([2-9]\d{2}[2-9]\d{6})$";
+    
+    private static bool IsNANPFormat(string value) => Regex.Match(value, _NANPFormat).Success;
+
+    public static string Clean(string phoneNumber)
+    {
+        var cleanPhoneNumber = Regex.Replace(phoneNumber, @"[^\d]", "");
+        cleanPhoneNumber = Regex.Replace(cleanPhoneNumber, @"^1", "");
+        return PhoneNumber.IsNANPFormat(cleanPhoneNumber) ? cleanPhoneNumber : throw new ArgumentException();
+    }
+}
+
+#!csharp
+
+using System.Text.RegularExpressions;
+
+string input = "1-205-330-2342";
+string result = Regex.Replace(input, @"[^\d]", "");
+Console.WriteLine(result); // >> 12053302342
+
+#!csharp
+
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+public class PhoneNumber
+{
+    public static string Clean(string phoneNumber)
+    {
+        var match = Regex.Match(string.Concat(phoneNumber.Where(char.IsDigit)), @"^1?([2-9]\d\d[2-9]\d{6})$");
+        return match.Success ? match.Groups[1].ToString() : throw new ArgumentException();
+    }
+}
