@@ -29,6 +29,7 @@ public static class Pangram
     }
 }
 
+// test
 var test = Pangram.IsPangram("test");
 Console.WriteLine(test);
 
@@ -39,12 +40,10 @@ using System.Linq;
 public class Pangram
 {
     const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-    public static bool IsPangram(string input)
-    {
-        return alphabet.All(input.ToLower().Contains);
-    }
+    public static bool IsPangram(string input) => alphabet.All(input.ToLower().Contains);
 }
 
+// test
 var test = Pangram.IsPangram("test");
 Console.WriteLine(test);
 
