@@ -1312,3 +1312,40 @@ Console.WriteLine(test);
 int i = 5;
 string test = $"{i:0000}";
 Console.WriteLine(test);
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+
+public enum Plant
+{
+    Violets = 'V',
+    Radishes = 'R',
+    Clover = 'C',
+    Grass = 'G'
+}
+
+public class KindergartenGarden
+{    
+    private readonly string _diagram;
+
+    public KindergartenGarden(string diagram) => _diagram = diagram;
+
+    public IEnumerable<Plant> Plants(string student)
+    {
+        int index = student[0] - 'A';
+        foreach(var row in _diagram.Split("\n"))
+        {
+            yield return (Plant)row[index * 2];
+            yield return (Plant)row[index * 2 + 1];
+        }
+    }
+}
+
+#!csharp
+
+string student = "Bob";
+int index = student[0] - 'A';
+
+Console.WriteLine(index);
