@@ -1346,6 +1346,6 @@ public class KindergartenGarden
 #!csharp
 
 string student = "Bob";
-int index = student[0] - 'A';
+int index = student[0] - 'A'; // A = 65
 
 Console.WriteLine(index);
