@@ -1440,3 +1440,32 @@ public class SpiralMatrix
         return matrix;
     }
 }
+
+#!csharp
+
+using System;
+
+public class Queen
+{
+    public Queen(int row, int column)
+    {
+        Row = row;
+        Column = column;
+    }
+    
+    public int Row { get; }
+    public int Column { get; }
+}
+
+public static class QueenAttack
+{
+    public static bool CanAttack(Queen white, Queen black) => 
+        black.Row == white.Row ||
+        black.Column == white.Column ||
+        Math.Abs(black.Row - white.Row) == Math.Abs(black.Column - white.Column);
+
+    public static Queen Create(int row, int column) => 
+        row < 0 || row > 7 || column < 0 || column > 7 ? 
+        throw new ArgumentOutOfRangeException() : 
+        new(row, column);
+}
