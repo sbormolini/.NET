@@ -1534,3 +1534,43 @@ public class SimpleCipher
     private string EncodeDecode(string str, Func<char, char, char> codeFun) => 
         str.Select((c,i) => codeFun(c, Key[i % Key.Length])).Aggregate("", (a, b) => a + b);
 }
+
+#!csharp
+
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
+HttpClient client = new HttpClient();
+client.DefaultRequestHeaders.Accept.Clear();
+client.DefaultRequestHeaders.Accept.Add(
+    new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+
+var response = await client.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
+
+Console.WriteLine(response);
+
+#!csharp
+
+public class ClientWithdrawTask
+{
+    public string action = "withdraw";
+    public int assetTypeId;
+    public string clientEmail;
+    public string clientName;
+    public int coraId;
+    public bool generateSupportTask = false;
+    public int quantity;
+    public string taskType = "client";
+}
+
+
+ClientWithdrawTask task = new() {
+    assetTypeId = 1001,
+    clientEmail = "azure@test.local",
+    clientName = "geralt from azure",
+    coraId = 1001,
+    quantity = 1
+};
