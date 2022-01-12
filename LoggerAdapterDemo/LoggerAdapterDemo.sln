@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerAdapter", "LoggerAdapter\LoggerAdapter.csproj", "{B3CD9653-2689-4F9C-A622-28EC66C399FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherAPI", "WeatherAPI\WeatherAPI.csproj", "{F3DC9AC9-6D5C-4F40-A966-36D293CDA352}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3CD9653-2689-4F9C-A622-28EC66C399FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CD9653-2689-4F9C-A622-28EC66C399FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CD9653-2689-4F9C-A622-28EC66C399FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CD9653-2689-4F9C-A622-28EC66C399FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DC9AC9-6D5C-4F40-A966-36D293CDA352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DC9AC9-6D5C-4F40-A966-36D293CDA352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DC9AC9-6D5C-4F40-A966-36D293CDA352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DC9AC9-6D5C-4F40-A966-36D293CDA352}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {149BABBC-8248-4A5E-9148-0608B7D9DE7B}
+	EndGlobalSection
+EndGlobal
