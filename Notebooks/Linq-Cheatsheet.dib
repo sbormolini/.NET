@@ -181,3 +181,8 @@ animals.OfType<Dog>(); // only contains Spike and Bingo
 
 var numbers = new[] { 1, 2, 3, 4, 5, 6 };
 numbers.SkipUntil(x => x > 3).ToArray(); // [4, 5, 6]
+
+#!csharp
+
+var numbers = new[] { 1, 2, 3, 4, 5, 6 };
+numbers.TakeWhile(x => x < 4).ToArray(); // [1, 2, 3]
