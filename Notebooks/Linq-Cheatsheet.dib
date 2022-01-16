@@ -162,3 +162,17 @@ var numbers = new []
 };
 
 var values = numbers.SelectMany(_ => _).ToList();
+
+#!csharp
+
+public abstract class Animal { /*...*/ }
+public class Cat : Animal { /*...*/ }
+public class Dog : Animal { /*...*/ }
+// ...
+var animals = new List<Animal>();
+animals.Add(new Cat("Garfield"));
+animals.Add(new Cat("Mr. Fluffy"));
+animals.Add(new Dog("Spike"));
+animals.Add(new Dog("Bingo"));
+
+animals.OfType<Dog>(); // only contains Spike and Bingo
