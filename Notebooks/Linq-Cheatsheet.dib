@@ -189,6 +189,7 @@ numbers.TakeWhile(x => x < 4).ToArray(); // [1, 2, 3]
 
 #!csharp
 
+https://www.geodanila.com/article/useful-linq-extension-methods/
 var colors = new[] { "yellow", "green", "red", "teal", "blue", "orange", "violet" };
 
 colors
