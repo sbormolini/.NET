@@ -186,3 +186,13 @@ numbers.SkipUntil(x => x > 3).ToArray(); // [4, 5, 6]
 
 var numbers = new[] { 1, 2, 3, 4, 5, 6 };
 numbers.TakeWhile(x => x < 4).ToArray(); // [1, 2, 3]
+
+#!csharp
+
+var colors = new[] { "yellow", "green", "red", "teal", "blue", "orange", "violet" };
+
+colors
+    .OrderBy(x => x.Length)
+    .ThenByDescending(x => x)
+    .ToArray();
+// [ "red", "teal", "blue", "green", "yellow", "violet", "orange" ]
