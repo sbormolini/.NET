@@ -189,7 +189,7 @@ numbers.TakeWhile(x => x < 4).ToArray(); // [1, 2, 3]
 
 #!csharp
 
-https://www.geodanila.com/article/useful-linq-extension-methods/
+// https://www.geodanila.com/article/useful-linq-extension-methods/
 var colors = new[] { "yellow", "green", "red", "teal", "blue", "orange", "violet" };
 
 colors
@@ -197,3 +197,26 @@ colors
     .ThenByDescending(x => x)
     .ToArray();
 // [ "red", "teal", "blue", "green", "yellow", "violet", "orange" ]
+
+#!csharp
+
+public static class EnumerableExtensions
+{
+    public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> items, Func<T, TKey> property)
+    {
+        return items.GroupBy(property).Select(x => x.First());
+    }
+}
+
+class Person
+{    
+    public string Name { get; set; }    
+}
+
+var persons = new[] {
+    new Person { Name = "George" },
+    new Person { Name = "John" },
+    new Person { Name = "George" }
+};
+
+persons.DistincyBy(x => x.Name); // Will only contain the first 2 objects
