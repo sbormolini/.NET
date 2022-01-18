@@ -220,3 +220,15 @@ var persons = new[] {
 };
 
 persons.DistincyBy(x => x.Name); // Will only contain the first 2 objects
+
+#!csharp
+
+// https://blexin.com/en/blog-en/linq-in-depth-advanced-features/
+var methodSyntaxGoldenCustomers = customers.Select(customer => new //anonymous type
+  {
+    YearsOfFidelity = GetYearsOfFidelity(customer),
+    Name = customer.CustomerName
+  })
+ .Where(x => x.YearsOfFidelity > 5)
+ .OrderBy(x => x.YearsOfFidelity)
+ .Select(x => x.Name);
