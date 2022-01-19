@@ -1574,3 +1574,24 @@ ClientWithdrawTask task = new() {
     coraId = 1001,
     quantity = 1
 };
+
+#!csharp
+
+var pets = new Pet[] {
+    new(Species.Cat),
+    new(Species.Dog),
+    new(Species.Unkown)
+};
+
+foreach (var pet in pets)
+{
+    var sound = pet.Species switch {
+        Species.Cat => "Purrrr...",
+        Species.Dog => "Woof!",
+        _ => "nothing"
+    };
+    Console.WriteLine(sound);
+}
+
+record Pet(Species Species);
+enum Species { Unkown, Car, Dog }
