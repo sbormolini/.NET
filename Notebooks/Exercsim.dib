@@ -1594,4 +1594,4 @@ foreach (var pet in pets)
 }
 
 record Pet(Species Species);
-enum Species { Unkown, Car, Dog }
+enum Species { Unkown, Cat, Dog }
