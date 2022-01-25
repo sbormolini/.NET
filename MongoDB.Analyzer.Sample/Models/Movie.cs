@@ -13,5 +13,6 @@
         public int Score { get; set; }
         public Genre Genre { get; set; }
         public string? Reviews { get; set; }
+        public string? Producer { get; set; }
     }
 }
