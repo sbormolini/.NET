@@ -1,0 +1,7 @@
+{
+  "DefaultLinqVersion": "V3",
+  "OutputDriverVersion": false,
+  "OutputInternalExcpetions": false,
+  "OutputInternalLogsToFile": false,
+  "LogFileName":  "C:\\logs\\analyzerlogs.txt"
+}
