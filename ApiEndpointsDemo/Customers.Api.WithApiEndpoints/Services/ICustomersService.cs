@@ -10,5 +10,6 @@ namespace Customers.Api.WithApiEndpoints.Services
         Customer? GetById(Guid id);
         bool Update(Customer customer);
         Task<List<Customer>> GetAllAsync();
+        Task CreateAsync(Customer customer);
     }
 }

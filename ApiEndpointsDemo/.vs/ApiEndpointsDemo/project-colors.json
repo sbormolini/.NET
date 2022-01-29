@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "18b75782-635d-4cec-bfeb-e10423884ab4": {
+      "ProjectGuid": "18b75782-635d-4cec-bfeb-e10423884ab4",
+      "DisplayName": "ApiEndpointsDemo",
+      "ColorIndex": 0
+    },
+    "8a9cfa6d-df32-4977-9beb-55be912909d9": {
+      "ProjectGuid": "8a9cfa6d-df32-4977-9beb-55be912909d9",
+      "DisplayName": "Customers.Api.WithControllers",
+      "ColorIndex": 1
+    },
+    "322bb464-62ed-4930-8d5e-dc7dbd34b818": {
+      "ProjectGuid": "322bb464-62ed-4930-8d5e-dc7dbd34b818",
+      "DisplayName": "Customers.Api.WithApiEndpoints",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

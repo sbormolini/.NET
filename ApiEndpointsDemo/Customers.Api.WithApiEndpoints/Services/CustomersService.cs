@@ -43,4 +43,13 @@ public class CustomersService : ICustomersService
     {
         return Task.FromResult(_customers.Values.ToList());
     }
+
+    public Task<bool> CreateAsync(Customer customer)
+    {
+        if (customer is null)
+            return false;
+
+        _customers[customer.Id] = customer;
+        return true;
+    }
 }
