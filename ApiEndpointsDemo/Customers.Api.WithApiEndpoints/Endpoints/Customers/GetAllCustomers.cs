@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Customers.Api.WithApiEndpoints.Endpoints.Customers;
 
-public class GetAllCustomers : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Customer>>
+public class GetAllCustomers : EndpointBaseAsync.WithoutRequest
+                                                .WithActionResult<List<Customer>>
 {
     private readonly ICustomersService _customersService;
 
