@@ -2,6 +2,7 @@
 using Customers.Api.WithApiEndpoints.Attributes;
 using Customers.Api.WithApiEndpoints.Services;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Customers.Api.WithApiEndpoints.Endpoints.Customers;
 
@@ -17,7 +18,12 @@ public class DeleteCustomer : EndpointBaseAsync.WithRequest<DeleteCustomerReques
 
     public DeleteCustomer(ICustomersService customersService) => _customersService = customersService;
 
-    [HttpPut("customers/{id:guid}")]
+    [HttpDelete("customers/{id:guid}")]
+    [SwaggerOperation(
+        Summary = "Deletes customer",
+        Description = "Deletes customer",
+        OperationId = "Customer.Delete",
+        Tags = new[] { "CustomerEndpoint" })]
     public override async Task<ActionResult> HandleAsync(
         [FromMultiSource] DeleteCustomerRequest request, 
         CancellationToken cancellationToken = default)
