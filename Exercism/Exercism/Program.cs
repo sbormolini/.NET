@@ -2,8 +2,14 @@
 using Exercism;
 using Xunit;
 
-var strings = new[] { "nail", "shoe" };
-var expected = new[] { "For want of a nail the shoe was lost.", "And all for the want of a nail." };
-var actual = Proverb.Recite(strings);
+var matrix = new[,]
+{
+        { 9, 8, 7 },
+        { 5, 3, 2 },
+        { 6, 6, 7 }
+};
+var actual = SaddlePoints.Calculate(matrix);
+var expected = new[] { (2, 1) };
 
-Assert.Equal(expected, Proverb.Recite(strings));
+if (expected == actual)
+    Console.WriteLine("YES");
