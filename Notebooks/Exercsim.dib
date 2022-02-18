@@ -1614,3 +1614,10 @@ public static class DiffieHellman
     public static BigInteger Secret(BigInteger primeP, BigInteger publicKey, BigInteger privateKey) =>
         BigInteger.ModPow(publicKey, privateKey, primeP);
 }
+
+#!csharp
+
+// reverse char
+char c = 'a';
+var test = (char)('a' + 'z' - c);
+Console.WriteLine(test);
