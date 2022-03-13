@@ -6,7 +6,7 @@ using static System.Console;
 var number = 1;
 
 new List<string> {
-    $"|{number}|",      #|1|
-    $"|{number,-10}|",  #|1    |
-    $"|{number,10}|"    #|    1|
+    $"|{number}|",      //|1|
+    $"|{number,-10}|",  //|1    |
+    $"|{number,10}|"    //|    1|
 }.ForEach(WriteLine);
