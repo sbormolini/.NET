@@ -1,0 +1,12 @@
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\bin\Debug\net6.0\LoggerAdapter.deps.json
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\bin\Debug\net6.0\LoggerAdapter.dll
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\bin\Debug\net6.0\ref\LoggerAdapter.dll
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\bin\Debug\net6.0\LoggerAdapter.pdb
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.csproj.AssemblyReference.cache
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.AssemblyInfoInputs.cache
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.AssemblyInfo.cs
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.csproj.CoreCompileInputs.cache
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.dll
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\ref\LoggerAdapter.dll
+C:\Users\Sandro\Workspace\.NET\LoggerAdapterDemo\LoggerAdapter\obj\Debug\net6.0\LoggerAdapter.pdb
