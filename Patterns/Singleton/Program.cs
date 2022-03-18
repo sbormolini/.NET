@@ -1,4 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// See https://refactoring.guru/design-patterns/singleton/csharp/example for more information
 
-https://refactoring.guru/design-patterns/singleton/csharp/example
+// The client code.
+using DesignPatterns.Singleton;
+
+Singleton s1 = Singleton.GetInstance();
+Singleton s2 = Singleton.GetInstance();
+
+if (s1 == s2)
+    Console.WriteLine("Singleton works, both variables contain the same instance.");
+else
+    Console.WriteLine("Singleton failed, variables contain different instances.");
