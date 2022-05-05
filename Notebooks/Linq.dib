@@ -232,3 +232,19 @@ var methodSyntaxGoldenCustomers = customers.Select(customer => new //anonymous t
  .Where(x => x.YearsOfFidelity > 5)
  .OrderBy(x => x.YearsOfFidelity)
  .Select(x => x.Name);
+
+#!csharp
+
+record Pet(Species Species, int Weight);
+enum Species { Unkown, Cat, Dog };
+
+var pets = new Pet[] {
+    new(Species.Cat, 20), new(Species.Dog, 60)
+    new(Species.Dog, 99), new(Species.Cat, 16)
+};
+
+var weightBySpecies = pets.GroupBy(p => p.Species)
+                          .Select(s => new{ 
+                              Species = s.Key, 
+                              TotalWeight = s.Sum(p => p.Weight)
+                        }).ToList()
