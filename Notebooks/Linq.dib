@@ -251,20 +251,18 @@ var weightBySpecies = pets.GroupBy(p => p.Species)
 
 #!csharp
 
+// .net 6
+
 var numbers = new[]{
     1,2,3,
     4,5,6,
     7,8,9
 };
 
-// start is inclusive
-// end is exclusive
-Range range = 3..6;
+// result is 1
+var first = numbers[0];
+Console.WriteLine(first);
 
-// result : 4,5,6
-var middle = numbers[range];
-
-foreach (var number in middle)
-{
-    Console.WriteLine(number);
-}
+// result is 9
+var last = numbers[^1];
+Console.WriteLine(last);
