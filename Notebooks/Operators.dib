@@ -1,0 +1,16 @@
+#!csharp
+
+// name can bu nill (?)
+// and is null
+string? name = null;
+
+#!csharp
+
+// use name value if not null
+// or use "Lia"
+name = name ?? "Lia";
+
+#!csharp
+
+// short version
+name ??= "Lia";
