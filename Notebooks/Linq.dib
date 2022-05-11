@@ -261,8 +261,8 @@ var numbers = new[]{
 
 // result is 1
 var first = numbers[0];
-Console.WriteLine(first);
+Console.WriteLine($"first element: {first}");
 
 // result is 9
 var last = numbers[^1];
-Console.WriteLine(last);
+Console.WriteLine($"first element: {last}");
