@@ -1,0 +1,14 @@
+#!csharp
+
+using System.Net;
+
+try
+{
+    var client = new HttpClient();
+    var result  = await client.GetAsync("https://httpstat.us/404");
+    result.EnsureSuccessStatusCode();
+}
+catch (HttpRequestException hre) when (hre.StatusCode == HttpStatusCode.NotFound)
+{
+    Console.WriteLine("Oh no not found!");
+}
