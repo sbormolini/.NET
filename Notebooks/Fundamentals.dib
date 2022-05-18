@@ -12,3 +12,21 @@ catch (HttpRequestException hre) when (hre.StatusCode == HttpStatusCode.NotFound
 {
     Console.WriteLine("Oh no not found!");
 }
+
+#!markdown
+
+What is deconstruct in C#?
+Deconstruction is a process of splitting a variable value into parts and storing them into new variables. 
+This could be useful when a variable stores multiple values such as a tuple. Let's take a look at the code sample in Listing 1. In this code, method GetATuple returns a tuple with three values.
+
+#!csharp
+
+var (year, month, day) = DateTime.Now;
+Console.WriteLine($"It's now {day} {month} {year}!");
+
+public static class DateTimeExtensions
+{
+    // Deconstruct name is important
+    public static void Deconstruct(this DateTime dateTime, out int year, out int month, out int day) =>
+        (year, month, day) = (dateTime.Year, dateTime.Month, dateTime.Day);
+}
