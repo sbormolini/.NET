@@ -1,3 +1,23 @@
+#!markdown
+
+Simple delegate samples
+
+#!csharp
+
+var hello = () => Console.WriteLine("Sali ");
+
+hello += () => Console.WriteLine("Basel ");
+hello += () => Console.WriteLine(".NET und I!");
+
+hello();
+
+// output:
+// Sali Basel, .NET und I!
+
+#!markdown
+
+Exception Filters to allow catch blocks targeting specific exceptions.
+
 #!csharp
 
 using System.Net;
