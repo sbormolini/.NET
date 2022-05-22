@@ -2,6 +2,8 @@
 
 Simple delegate samples
 
+Source: abukakmeh.com
+
 #!csharp
 
 var hello = () => Console.WriteLine("Sali ");
@@ -17,6 +19,8 @@ hello();
 #!markdown
 
 Exception Filters to allow catch blocks targeting specific exceptions.
+
+Source: abukakmeh.com
 
 #!csharp
 
@@ -39,6 +43,8 @@ What is deconstruct in C#?
 Deconstruction is a process of splitting a variable value into parts and storing them into new variables. 
 This could be useful when a variable stores multiple values such as a tuple. Let's take a look at the code sample in Listing 1. In this code, method GetATuple returns a tuple with three values.
 
+Source: abukakmeh.com
+
 #!csharp
 
 var (year, month, day) = DateTime.Now;
@@ -49,4 +55,30 @@ public static class DateTimeExtensions
     // Deconstruct name is important
     public static void Deconstruct(this DateTime dateTime, out int year, out int month, out int day) =>
         (year, month, day) = (dateTime.Year, dateTime.Month, dateTime.Day);
+}
+
+#!markdown
+
+Minimal APIs service
+Minimal APIs use ASP.NET Core dependency injection services to manages dependencies. You can register services with varyjing lifetimes, such a transient, scoped or singleton.
+
+Source: abukakmeh.com
+
+#!csharp
+
+var builder = WebApplication.CreateBuiler(args);
+
+// register service for use in endpoints
+// scoped : created for each incoming reqzest
+builder.Services.AddScoped<MyService>();
+var app = builder.Build();
+
+// my service injected using ASP.NET Core DI
+app.MapGet("/",(MyService myService) => myService.Hi);
+
+app.Run();
+
+public class MyService 
+{
+    public string Hi => "Grüezi!";
 }
