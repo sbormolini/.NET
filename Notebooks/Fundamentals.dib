@@ -82,3 +82,39 @@ public class MyService
 {
     public string Hi => "Grüezi!";
 }
+
+#!markdown
+
+Pattern matching in C# allows matching on things that implement ITuple
+
+#!csharp
+
+{
+    object o = new Person();
+    
+    if (o is var (name, age))
+    {
+        Console.WriteLine($"Name: {name}, Age: {age}");
+    }
+}
+
+{
+    object o = new Person();
+    
+    if (o is (string name, int age))
+    {
+        Console.WriteLine($"Name: {name}, Age: {age}");
+    }
+}
+
+class Person : ITuple
+{
+    public object? this[int index] => index switch 
+    {
+        0 => "SomeName",
+        1 => 35,
+        _ => null
+    };
+
+    public int Length => 2;
+}
