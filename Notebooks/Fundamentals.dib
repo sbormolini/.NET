@@ -87,6 +87,8 @@ public class MyService
 
 Pattern matching in C# allows matching on things that implement ITuple
 
+Source: https://twitter.com/19481808/status/1507043438037909504
+
 #!csharp
 
 {
