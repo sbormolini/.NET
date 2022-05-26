@@ -120,3 +120,36 @@ class Person : ITuple
 
     public int Length => 2;
 }
+
+#!markdown
+
+Explore lazy initialization in .NET, a performance improvement that means an object creation is deferred until the object is first used
+
+#!csharp
+
+// target type expression for defining lazy
+
+private static readonly Lazy<Font> = FontValue = new(() => {
+    FontCollection collcetion = new();
+    var familiy = collection.Add("./assets/FontName.ttf");
+    return familiy.CreateFont(FontSize, FontStyle.Bold);
+});
+
+#!markdown
+
+Represents the largest possible value of an Int32. This field is constant.
+https://docs.microsoft.com/en-us/dotnet/api/system.int32.maxvalue?view=net-6.0
+
+Represents the smallest possible value of Int32. This field is constant.
+https://docs.microsoft.com/en-us/dotnet/api/system.int32.minvalue?view=net-6.0
+
+#!csharp
+
+// arbitary
+var large = 1_000_000;
+
+// top most limiz of int
+var largest = int.MaxValue;
+
+// bottom most limiz of int
+var smallest = int.MinValue;
