@@ -185,3 +185,79 @@ foreach (var v in productQuery)
 #!csharp
 
 var anonArray = new[] { new { name = "apple", diam = 4 }, new { name = "grape", diam = 1 }};
+
+#!markdown
+
+define class that lets callers subscribe to an event in c#
+https://dotnet.github.io/orleans/docs/tutorials_and_samples/tutorial_1.html
+
+#!csharp
+
+// version 1
+class MyThing
+{
+    public event Action OnThing { get; set; }
+
+    public void DoThing()
+    {
+        OnThing?.Invoke();
+    }
+}
+
+#!csharp
+
+// version 2
+class MyThing
+{
+    private List<Action> _subscribers = new();
+
+    public void DoThing()
+    {
+        foreach (var s in _subscribers)
+        {
+            s();
+        }
+    }
+
+    public void Subscribe(Action callback)
+    {
+        _subscribers.Add(callback);
+    }
+
+    public void Unsubscribe(Action callback)
+    {
+        _subscribers.Remove(callback);
+    }
+}
+
+#!csharp
+
+// version 3
+
+interface IThingSubscriber
+{
+    void OnThingDone();
+}
+
+class MyThing
+{
+    private List<IThingSubscriber> _subscribers = new();
+
+    public void DoThing()
+    {
+        foreach (var s in _subscribers)
+        {
+            s.OnThingDone();
+        }
+    }
+
+    public void Subscribe(IThingSubscriber subscriber)
+    {
+        _subscribers.Add(subscriber);
+    }
+
+    public void Unsubscribe(IThingSubscriber subscriber)
+    {
+        _subscribers.Remove(subscriber);
+    }
+}
