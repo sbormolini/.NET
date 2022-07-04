@@ -261,3 +261,20 @@ class MyThing
         _subscribers.Remove(subscriber);
     }
 }
+
+#!markdown
+
+Discard Arguments
+
+#!csharp
+
+using static System.Diagnostics.Process;
+
+//dont need or want the value
+var isNumber = int.TryParse("one", out var _);
+Console.WriteLine(isNumber);
+
+// dont need these args
+var process = Start("ping", "localhost -c 1");
+process.Exited += (_, _) => Console.WriteLine("done!");
+await process.WaitForExitAsync();
