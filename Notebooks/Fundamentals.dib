@@ -278,3 +278,24 @@ Console.WriteLine(isNumber);
 var process = Start("ping", "localhost -c 1");
 process.Exited += (_, _) => Console.WriteLine("done!");
 await process.WaitForExitAsync();
+
+#!markdown
+
+Caching in .NET applications
+https://docs.microsoft.com/en-us/dotnet/api/system.runtime.caching?view=dotnet-plat-ext-6.0
+
+The cache provides you mechanisms to cache and expires in-memory objects for improved preformance and memory management.
+
+#!csharp
+
+// #nuget System.Runtime.Caching
+using System.Runtime.Caching;
+using static System.DateTimeOffset;
+
+var cache = MemoryCache.Default;
+
+cache.Add(
+    key: "91346c29-45b4-4420-9d08-1b5f793f88f9",
+    value: "{\"name\":\"John\", \"age\":30, \"car\":null}",
+    absoluteExpiration: Now.AddSeconds(60)
+);
