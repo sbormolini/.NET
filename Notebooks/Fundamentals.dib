@@ -310,7 +310,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.io?view=net-6.0
 using System.IO;
 using static System.IO.FileMode;
 
-using var file = File.Open("test.txt", OpenCreate);
+using var file = File.Open("test.txt", OpenOrCreate);
 
 using var writer = new StreamWriter(file);
 
