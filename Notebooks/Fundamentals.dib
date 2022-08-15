@@ -346,3 +346,29 @@ ReadKey();
 source.Cancel();
 WriteLine("Cancelled!");
 ReadKey();
+
+#!markdown
+
+# uri builder
+The UriBuilder class provides a convenient way to modify the contents of a Uri instance without creating a new Uri instance for each modification.
+The UriBuilder properties provide read/write access to the read-only Uri properties so that they can be modified.
+
+https://docs.microsoft.com/en-us/dotnet/api/system.uribuilder?view=net-6.0
+
+#!csharp
+
+var host = "www.contosoe.com";
+var port = 80;
+var page = "default.html";
+var qs = "records=10";
+
+// string
+string path = $"https://{host}:{port}/{page}?{qs}";
+//path => https://www.contosoe.com:80/default.html?records=10
+
+// uribuilder
+UriBuilder baseUri = new("https", host, 80, page, qs);
+//baseUri.Host => www.contosoe.com
+//baseUri.Port => 80
+//baseUri.Query => ?records=10
+//baseUri => https://www.contosoe.com:80/default.html?records=10
