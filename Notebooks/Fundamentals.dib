@@ -372,3 +372,39 @@ UriBuilder baseUri = new("https", host, 80, page, qs);
 //baseUri.Port => 80
 //baseUri.Query => ?records=10
 //baseUri => https://www.contosoe.com:80/default.html?records=10
+
+#!markdown
+
+# Filters in Minimal API apps
+Minimal API filters allow developers to implement business logic that supports:
+
+Running code before and after the endpoint handler.
+Inspecting and modifying parameters provided during an endpoint handler invocation.
+Intercepting the response behavior of an endpoint handler.
+Filters can be helpful in the following scenarios:
+
+Validating the request parameters and body that are sent to an endpoint.
+Logging information about the request and response.
+Validating that a request is targeting a supported API version.
+
+#!csharp
+
+var builder = WebApplication.CreateBuilder(args);
+
+var app = builder.Build();
+
+string ColorName(string color) => $"Color specified: {color}!";
+
+app.MapGet("/colorSelector/{color}", ColorName)
+    .AddEndpointFilter(async (invocationContext, next) =>
+    {
+        var color = invocationContext.GetArgument<string>(0);
+
+        if (color == "Red")
+        {
+            return Results.Problem("Red not allowed!");
+        }
+        return await next(invocationContext);
+    });
+
+app.Run();
