@@ -430,3 +430,27 @@ string message = $"The usage policy for {safetyScore} is {
 }";
 
 Console.WriteLine(message); 
+
+#!markdown
+
+# Enhanced Pattern Matching
+C#9 enhances pattern matching with additional keywords: and, or, & not.
+You can build powerful pattern-matching expressions combined with the "is" keyword.
+Source @buhakmeh
+
+https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching 
+
+#!csharp
+
+var value = 'k';
+var result = IsLetterOrSeperator(value);
+
+// k : True
+Console.WriteLine($"{value} : {result}");
+
+bool IsLetterOrSeperator(char c) => 
+    c is (>= 'a' and <= 'z') 
+    or (>= 'A' and <= 'Z')
+    or '.'
+    or ','
+    and not ' ';
