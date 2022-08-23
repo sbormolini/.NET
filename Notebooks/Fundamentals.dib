@@ -435,8 +435,8 @@ Console.WriteLine(message);
 
 # Enhanced Pattern Matching
 C#9 enhances pattern matching with additional keywords: and, or, & not.
-You can build powerful pattern-matching expressions combined with the "is" keyword.
-Source @buhakmeh
+You can build powerful pattern-matching expressions combined with the "is" keyword.<br>
+Source: @buhakmeh
 
 https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching 
 
@@ -454,3 +454,22 @@ bool IsLetterOrSeperator(char c) =>
     or '.'
     or ','
     and not ' ';
+
+#!markdown
+
+# Exception and Stack Traces
+You need to be careful when re-throwing exceptions.<br>
+Throwing an exception explicitly reset the stack trace and can make it difficult to track down the real issue.<br>
+Source: @buhakmeh
+
+#!csharp
+
+try { A(); }
+catch (Exception e)
+{
+    throw e;
+}
+
+static void A() => B();
+static void B() => C();
+static void C() => throw new NotImplementedException();
