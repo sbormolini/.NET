@@ -473,3 +473,25 @@ catch (Exception e)
 static void A() => B();
 static void B() => C();
 static void C() => throw new NotImplementedException();
+
+#!markdown
+
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net-6.0
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.asynclocal-1?view=net-6.0
+
+AsyncLocal<T> Class<br>
+Represents ambient data that is local to a given asynchronous control flow, such as an asynchronous method.
+
+#!csharp
+
+var local = new AsyncLocal<int>();
+
+Console.WriteLine($"Before: {local.Value}");
+await Bleed();
+Console.WriteLine($"After: {local.Value}");
+
+Task Bleed()
+{
+    local.Value = 10;
+    return Task.CompletedTask;
+}
