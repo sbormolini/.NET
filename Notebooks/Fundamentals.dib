@@ -516,3 +516,33 @@ if (int.TryParse("42", out var result))
 {
     WriteLine($"the answer is {result}");
 }
+
+#!markdown
+
+### Expression Bodied Members
+When creating get-only convenience members that rely on toher properties in your object, consider using expression-bodied members.
+Significantly reduce noise in your type declarations.
+Source: @buhakmeh<br>
+<br>
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members
+
+#!csharp
+
+var noRobot = new Person("Sandro", "Bormolini");
+
+Console.WriteLine(noRobot.FullName);
+
+// new implementation
+public record Person(string FirstName, string LastName)
+{
+    public string FullName => $"{FirstName} {LastName}";
+}
+
+/* old
+public record Person(string FirstName, string LastName)
+{
+    public string FullName { 
+        get { return $"{FirstName} {LastName}" }
+    }
+}
+*/
