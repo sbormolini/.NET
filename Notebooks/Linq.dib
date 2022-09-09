@@ -266,3 +266,20 @@ Console.WriteLine($"first element: {first}");
 // result is 9
 var last = numbers[^1];
 Console.WriteLine($"first element: {last}");
+
+#!markdown
+
+Simplified ordering with System.LINQ
+https://devblogs.microsoft.com/dotnet/announcing-dotnet-7-preview-7/
+
+#!csharp
+
+// Previously, you had to call OrderBy/OrderByDescending by referencing the own value.
+var data = new[] { 2, 1, 3 };
+var sorted = data.OrderBy(static e => e);
+var sortedDesc = data.OrderByDescending(static e => e);
+
+// now with .net 7
+var data = new[] { 2, 1, 3 };
+var sorted = data.Order();
+var sortedDesc = data.OrderByDescending();
