@@ -546,3 +546,31 @@ public record Person(string FirstName, string LastName)
     }
 }
 */
+
+#!markdown
+
+### ClientWebSocket upgrade response details
+ClientWebSocket previously did not provide any details about upgrade response. However, the information about response headers and status code might be important in both failure and success scenarios.
+
+dotnet/runtime#25918
+https://github.com/dotnet/runtime/issues/25918
+
+#!csharp
+
+ClientWebSocket ws = new();
+ws.Options.CollectHttpResponseDetails = true;
+try
+{
+    await ws.ConnectAsync(uri, default);
+    // success scenario
+    ProcessSuccess(ws.HttpResponseHeaders);
+    ws.HttpResponseHeaders = null; // clean up (if needed)
+}
+catch (WebSocketException)
+{
+    // failure scenario
+    if (ws.HttpStatusCode != null)
+    {
+        ProcessFailure(ws.HttpStatusCode, ws.HttpResponseHeaders);
+    }
+}
