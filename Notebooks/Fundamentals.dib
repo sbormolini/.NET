@@ -574,3 +574,24 @@ catch (WebSocketException)
         ProcessFailure(ws.HttpStatusCode, ws.HttpResponseHeaders);
     }
 }
+
+#!markdown
+
+### System.Math
+Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.<br>
+https://docs.microsoft.com/en-us/dotnet/api/system.math?view=net-7.0 
+<br>
+Code source: @buhakmeh<br>
+<br>
+
+#!csharp
+
+using static System.Console;
+using static System.Math;
+
+var inches = 12;
+var radius = inches / 2;
+var pizza = (PI * Pow(radius, 2));
+
+// results
+WriteLine($"You have {pizza:00.00} in²");
