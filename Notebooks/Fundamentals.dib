@@ -595,3 +595,31 @@ var pizza = (PI * Pow(radius, 2));
 
 // results
 WriteLine($"You have {pizza:00.00} in²");
+
+#!markdown
+
+### sealed class
+When applied to a class, the sealed modifier prevents other classes from inheriting from it. Should be applied by default! Also benefits from performance improvments.<br>
+Reference: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/sealed<br>
+Source: https://www.youtube.com/watch?v=d76WWAD99Yo&t=1s (Nick Chapsas)<br>
+
+#!csharp
+
+public class BaseClass
+{
+    public virtual void ExampleVoidMethod() {}
+    public virtual int ExampleIntMethod() => 0;
+}
+
+public class OpenClass : BaseClass
+{
+    public override void ExampleVoidMethod() {}
+    public override int ExampleIntMethod() => 69;
+}
+
+// better performance, use as default
+public sealed class SealedClass : BaseClass
+{
+    public override void ExampleVoidMethod() {}
+    public override int ExampleIntMethod() => 420;
+}
