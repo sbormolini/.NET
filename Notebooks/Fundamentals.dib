@@ -623,3 +623,62 @@ public sealed class SealedClass : BaseClass
     public override void ExampleVoidMethod() {}
     public override int ExampleIntMethod() => 420;
 }
+
+#!markdown
+
+### Iterate List
+
+Source: https://www.youtube.com/watch?v=jUZ3VKFyB-A (Nick Chapsas)
+
+#!csharp
+
+Random rng  = new(420);
+int size = 100;
+List<int> _items;
+
+_items = Enumerable.Range(1, size).Select(x => rng.Next()).ToList();
+
+// for loop
+for (var i = 0; i < _items.Count; i++)
+{
+    var item = _items[i];
+}
+
+// foreach
+foreach (var item in _items)
+{
+
+}
+
+// foreach lower
+List<int>.Enumerator enumerator = _items.GetEnumerator();
+try
+{
+    while (enumerator.MoveNext())
+    {
+        int current = enumerator.Current;
+    }
+}
+finally
+{
+    ((IDisposable)enumerator).Dispose();
+}
+
+// parallel foreach
+Parallel.ForEach(_items, i => {});
+
+// parallel linq
+_items.AsParallel().ForAll(i => {});
+
+// foreach span
+foreach (var item in CollectionMarshal.AsSpan(_items))
+{
+
+}
+
+// for span
+var asSpan = CollectionMarshal.AsSpan(_items);
+for (var i = 0; i < asSpan.Length; i++)
+{
+    var item = asSpan[i];
+}
