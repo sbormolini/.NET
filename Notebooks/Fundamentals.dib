@@ -627,8 +627,9 @@ public sealed class SealedClass : BaseClass
 #!markdown
 
 ### Iterate List
-
-Source: https://www.youtube.com/watch?v=jUZ3VKFyB-A (Nick Chapsas)
+Gets a Span<T> view over the data in a list. Items should not be added or removed from the List<T> while the Span<T> is in use.<br>
+Source: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.collectionsmarshal.asspan?view=net-6.0<br>
+Code source: https://www.youtube.com/watch?v=jUZ3VKFyB-A (Nick Chapsas)
 
 #!csharp
 
