@@ -10,3 +10,28 @@ new List<string> {
     $"|{number,-10}|",  //|1    |
     $"|{number,10}|"    //|    1|
 }.ForEach(WriteLine);
+
+#!markdown
+
+### Stringbuilder
+Although StringBuilder and String both represent sequences of characters, they are implemented differently. String is an immutable type. That is, each operation that appears to modify a String object actually creates a new string.<br>
+Source: https://learn.microsoft.com/hu-hu/dotnet/api/system.text.stringbuilder?view=net-6.0<br>
+<br>
+Code source: @buhakmeh
+
+#!csharp
+
+using System.Text;
+var thousands = Enumerable.Range(1, 10_000);
+
+// dont do this
+var output = "";
+foreach (var item in thousands)
+    output += item;
+
+// do this instead
+StringBuilder builder = new();
+foreach (var item in thousands)
+    builder.Append(item);
+
+Console.WriteLine(builder.ToString());
