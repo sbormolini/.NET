@@ -35,3 +35,17 @@ foreach (var item in thousands)
     builder.Append(item);
 
 Console.WriteLine(builder.ToString());
+
+#!markdown
+
+### System.Diagnostics.CodeAnalysis.StringSyntaxAttribute
+https://github.com/dotnet/runtime/issues/62505
+
+#!csharp
+
+using System.Diagnostics.CodeAnalysis;
+
+void TestRegex([StringSyntax(StringSyntaxAttribute.Regex)]string regex) 
+{
+
+}
