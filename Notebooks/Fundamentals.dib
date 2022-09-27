@@ -683,3 +683,22 @@ for (var i = 0; i < asSpan.Length; i++)
 {
     var item = asSpan[i];
 }
+
+#!markdown
+
+### Initalize empty enumerables
+Use Enumerable.Empty to initialize an enumerable variable to an empty collection.
+<br><br>
+Source: https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.empty?view=net-6.0<br>
+Code source: @buhakmeh
+
+#!csharp
+
+// dont
+IEnumerable<int> integers = null;
+
+// do
+IEnumerable<int> numbers = Enumerable.Empty<int>();
+
+// safe access
+Console.WriteLine(numbers.Count());
