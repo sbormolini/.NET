@@ -283,3 +283,16 @@ var sortedDesc = data.OrderByDescending(static e => e);
 var data = new[] { 2, 1, 3 };
 var sorted = data.Order();
 var sortedDesc = data.OrderByDescending();
+
+#!csharp
+
+var cars = new[] {
+    new { Manufacture = "Audi", Model = "A6" },
+    new { Manufacture = "Porsche", Model = "911" }
+};
+
+// dot notation
+var audis = cars.Where(c => c.Manufacture == "Audi").OrderByDescending(c => c.Model);
+
+// query syntax
+var porsches = from c in cars where c.Manufacture == "Porsche" orderby c.Model descending select c;
