@@ -702,3 +702,46 @@ IEnumerable<int> numbers = Enumerable.Empty<int>();
 
 // safe access
 Console.WriteLine(numbers.Count());
+
+#!markdown
+
+#### Date and Time in C#
+Using datetime provider to test code using date and time
+https://learn.microsoft.com/en-us/dotnet/api/system.datetime?view=net-7.0
+<br><br>
+Code source: https://www.youtube.com/watch?v=5DrGdyxnO5A (Nick Chapsas)
+
+#!csharp
+
+// how to test code?
+
+public interface IDateTimeProvdier
+{
+    public DateTimeOffset Now { get; }
+}
+
+pulbic class DateTimeProvider : IDateTimeProvdier
+{
+    public DateTimeOffset Now  => DateTimeOffset.Now;
+}
+
+public class GreeterService
+{
+    private readonly DateTimeProvider _dateTimeProvider;
+
+    public GreeterService (IDateTimeProvider dateTimeProvider)
+    {
+        _dateTimeProvider = dateTimeProvider;
+    }
+
+    public string GenereateGreetText()
+    {
+        var dateTimeNow = DateTimeOffset.Now;
+        return dateTimeNow.Hour switch
+        {
+            >= 5 and < 12 => "Morning",
+            >= 12 and < 18 => "Good afternoon",
+            _ => "Good evening"
+        };
+    }
+}
