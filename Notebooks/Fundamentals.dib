@@ -745,3 +745,19 @@ public class GreeterService
         };
     }
 }
+
+#!markdown
+
+#### Math.Clamp
+Returns value clamped to the inclusive range of min and max.
+<br><br>
+Source: https://learn.microsoft.com/en-us/dotnet/api/system.math.clamp?view=net-6.0<br>
+Code source: @buhajmeh<br>
+
+#!csharp
+
+var extreme = 1000;
+var result = Math.Clamp(extreme, 1, 100);
+
+// result is 100
+Console.WriteLine(result);
