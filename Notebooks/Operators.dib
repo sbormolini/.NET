@@ -40,3 +40,29 @@ Write(sequence, ^4..^1);// 7,8,9
 
 static void Write(int[] values, Range range) =>
     Console.WriteLine(string.Join(", ", values[range]));
+
+#!markdown
+
+#### await operator
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/await<br>
+https://www.youtube.com/watch?v=ileC_qyLdD4
+
+#!csharp
+
+using System.Diagnostics;
+
+var sw = Stopwatch.StartNew();
+await Task.Delay(2000);
+Console.WriteLine($"Waited for {sw.ElapsedMilliseconds}ms");
+
+#!csharp
+
+using System.Runtime.CompilerServices;
+
+public class Delay
+{
+    private readonly TimeSpan _timeSpan;
+    private Delay(TimeSpan timeSpan) => _timeSpan = timeSpan;
+    public static Delay Seconds(int seconds) => new Delay(TimeSpan.FromSeconds(seconds)); 
+    public TaskAwaiter GetAwaiter() => Task.Delay(_timeSpan).GetAwaiter();
+}
