@@ -761,3 +761,23 @@ var result = Math.Clamp(extreme, 1, 100);
 
 // result is 100
 Console.WriteLine(result);
+
+#!markdown
+
+#### CultureInfo TextInfo.ToTitleCase(String)
+Converts the specified string to title case (except for words that are entirely in uppercase, which are considered to be acronyms).
+<br><br>
+Source: https://learn.microsoft.com/en-us/dotnet/api/system.globalization.textinfo.totitlecase?view=net-6.0<br>
+Code source: @buhajmeh<br>
+
+#!csharp
+
+using static System.Console;
+using static System.Globalization.CultureInfo;
+
+var name = "sandro bormolini";
+
+var info = GetCultureInfo("de-ch").TextInfo;
+var result = info.ToTitleCase(name);
+
+WriteLine(result);
