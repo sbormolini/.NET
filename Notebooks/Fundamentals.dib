@@ -781,3 +781,33 @@ var info = GetCultureInfo("de-ch").TextInfo;
 var result = info.ToTitleCase(name);
 
 WriteLine(result);
+
+#!markdown
+
+#### catch when expression
+https://learn.microsoft.com/de-de/dotnet/csharp/language-reference/keywords/try-catch<br>
+Code source: @MilanJovanovic
+
+#!csharp
+
+using System.Net;
+using System.Net.Http;
+
+var httpClient = new HttpClient();
+
+try 
+{
+    await httpClient.PutAsync("update-dotnet-tips", tip);
+}
+catch (HttpRequestException e) when (e.StatusCode == HttpStatusCode.BadRequest)
+{
+    // handle 400 bad request
+}
+catch (HttpRequestException e) when (e.StatusCode == HttpStatusCode.NotFound)
+{
+    // handle 404 not found
+}
+catch (HttpRequestException e) when (e.StatusCode == HttpStatusCode.Conflict)
+{
+    // handle 409 conflict
+}
