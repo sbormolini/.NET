@@ -811,3 +811,21 @@ catch (HttpRequestException e) when (e.StatusCode == HttpStatusCode.Conflict)
 {
     // handle 409 conflict
 }
+
+#!markdown
+
+Code source: @davidpine7
+<br><br>
+When iterating with foreach, you can select the index using the Select extension overload. In this example, we deconstruct the index and value, writing them to the console while employing C# 11 raw string literals.
+
+#!csharp
+
+using System;
+using System.Linq;
+
+string[] numberNames = {"one", "two", "three", "four"};
+
+foreach (var (index, name) in numberNames.Select((n, i) => (i, n)))
+{
+    Console.WriteLine($"Index {index}, Value: {name}");
+}
