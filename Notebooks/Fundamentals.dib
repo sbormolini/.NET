@@ -829,3 +829,30 @@ foreach (var (index, name) in numberNames.Select((n, i) => (i, n)))
 {
     Console.WriteLine($"Index {index}, Value: {name}");
 }
+
+#!markdown
+
+#### Using records for Data Transfer Objects (DTO)<br>
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record<br>
+https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5<br>
+
+#!csharp
+
+// class
+public record ProductResponseAsClass
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public decimal Price { get; set; }
+    public int Quantitiy { get; set; }
+}
+
+// record
+public record ProductResponseAsRecord(
+    int Id,
+    string Name, 
+    string Category,
+    decimal Price,
+    int Quantitiy
+);
