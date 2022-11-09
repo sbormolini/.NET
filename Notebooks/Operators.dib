@@ -66,3 +66,22 @@ public class Delay
     public static Delay Seconds(int seconds) => new Delay(TimeSpan.FromSeconds(seconds)); 
     public TaskAwaiter GetAwaiter() => Task.Delay(_timeSpan).GetAwaiter();
 }
+
+#!markdown
+
+Simplify value conversions with the implicit operator
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/user-defined-conversion-operators
+code source: @MilanJovanovic
+
+#!csharp
+
+public class Email
+{
+    public Email(string value) => Value = value;
+    public string Value { get; }
+    public static implicit operator string(Email email) =>
+        email?.Value ?? string.Empty;
+}
+
+var email = new Email("hans.muster@test.local");
+string emailValue = email;
