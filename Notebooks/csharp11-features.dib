@@ -12,3 +12,32 @@ var xmlPrologue = """<?xml version="1.0" encoding="UTF-8"?>""";
 
 sb.Append(xmlPrologue);
 Console.WriteLine(sb.ToString());
+
+#!markdown
+
+List Patterns<br>
+https://devblogs.microsoft.com/dotnet/early-peek-at-csharp-11-features/
+
+#!csharp
+
+int[] numbers = { 1, 2, 3 };
+
+Console.WriteLine(numbers is [1, 2, 3]);
+Console.WriteLine(numbers is [1, 2, 4]);
+Console.WriteLine(numbers is [1, 2, 3, 4]);
+
+Console.WriteLine(numbers is [0 or 1, <= 2, >= 3]);
+
+#!csharp
+
+var emptyName = Array.Empty<string>();
+var myName = new[] {"Hans Peter"};
+var mynameBrokenDown = new[] {"Hans", "Peter"};
+var mynameBrokenDownFurther = new[] {"Hans", "Peter", "The 1st"};
+
+var text = myName switch
+{
+    [] => "Name was empty",
+    [var fullName] => $"My full name is: {fullName}",
+    [var firstName, var lastName] => $"My full name is: {firstName} {lastName}"
+};
