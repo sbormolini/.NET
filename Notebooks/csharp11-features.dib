@@ -1,0 +1,14 @@
+#!markdown
+
+Raw String Literals<br>
+https://devblogs.microsoft.com/dotnet/csharp-11-preview-updates/
+
+#!csharp
+
+using System.Text;
+
+var sb = new StringBuilder();
+var xmlPrologue = """<?xml version="1.0" encoding="UTF-8"?>""";
+
+sb.Append(xmlPrologue);
+Console.WriteLine(sb.ToString());
