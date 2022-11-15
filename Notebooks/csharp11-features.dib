@@ -41,3 +41,19 @@ var text = myName switch
     [var fullName] => $"My full name is: {fullName}",
     [var firstName, var lastName] => $"My full name is: {firstName} {lastName}"
 };
+
+#!markdown
+
+ExtendedNameof Scope<br>
+https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11
+
+#!csharp
+
+public class MyClass
+{
+    [Name(nameof(text))]
+    public void Test(string text)
+    {
+        
+    }
+}
