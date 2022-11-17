@@ -296,3 +296,30 @@ var audis = cars.Where(c => c.Manufacture == "Audi").OrderByDescending(c => c.Mo
 
 // query syntax
 var porsches = from c in cars where c.Manufacture == "Porsche" orderby c.Model descending select c;
+
+#!csharp
+
+public record Person(string FullName, DateOnly Birthday);
+
+var people = new []
+{
+    new Person("Sandro Bormolini", new DateOnly(1986, 12, 2)),
+    new Person("Marco Bormolini", new DateOnly(1987, 11, 21)),
+    new Person("Arno Bormolini", new DateOnly(1956, 9, 12))
+};
+
+var canDrinkv1 = people
+    .Where(p => DateTime.Now.Year - p.Birthday.Year > 21)
+    .OrderByDescending(p => DateTime.Now.Year - p.Birthday.Year);
+
+var canDrinkv2 = from p in people
+    where DateTime.Now.Year - p.Birthday.Year > 21
+    orderby DateTime.Now.Year - p.Birthday.Year descending
+    select p;
+
+// performance impact and more allocation
+var canDrinkv3 = from p in people
+    let age = DateTime.Now.Year - p.Birthday.Year
+    where age > 21
+    orderby age descending
+    select p;
