@@ -856,3 +856,16 @@ public record ProductResponseAsRecord(
     decimal Price,
     int Quantitiy
 );
+
+#!markdown
+
+Adding Microseconds and Nanoseconds to TimeStamp, DateTime, DateTimeOffset, and TimeOnly<br>
+https://devblogs.microsoft.com/dotnet/announcing-dotnet-7-preview-4/
+
+#!csharp
+
+DateTime demo = DateTime.Now;
+
+Console.WriteLine($"Ticks: {demo.Ticks}");
+Console.WriteLine($"Microseconds: {demo.Microsecond}");
+Console.WriteLine($"Nanoseconds: {demo.Nanosecond}");
