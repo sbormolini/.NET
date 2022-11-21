@@ -869,3 +869,25 @@ DateTime demo = DateTime.Now;
 Console.WriteLine($"Ticks: {demo.Ticks}");
 Console.WriteLine($"Microseconds: {demo.Microsecond}");
 Console.WriteLine($"Nanoseconds: {demo.Nanosecond}");
+
+#!markdown
+
+TarFile Class
+https://learn.microsoft.com/en-us/dotnet/api/system.formats.tar?view=net-7.0
+https://learn.microsoft.com/en-us/dotnet/api/system.formats.tar.tarfile?view=net-7.0
+
+#!csharp
+
+using System.Formats.Tar;
+
+// create tar file
+TarFile.CreateFromDirectory(
+    @"C:\Temp\Demo\Source",
+    @"C:\Temp\Demo\Demo.tar",
+    false);
+
+// extract tar file
+TarFile.ExtractToDirectory(
+    @"C:\Temp\Demo\Demo.tar",
+    @"C:\Temp\Demo\Extracted",
+    false);
