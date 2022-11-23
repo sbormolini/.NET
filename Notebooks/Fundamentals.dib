@@ -891,3 +891,71 @@ TarFile.ExtractToDirectory(
     @"C:\Temp\Demo\Demo.tar",
     @"C:\Temp\Demo\Extracted",
     false);
+
+#!markdown
+
+### Code Readability improvments
+#### Target typed new expression
+Code Source: @MilanJovanovic
+
+#!csharp
+
+var dictionary = new Dictionary<string, List<int>>()
+{
+    { "one-two", new List<int> {1, 2} },
+    { "one-two-three", new List<int> {1, 2, 3} },
+};
+
+#!csharp
+
+Dictionary<string, List<int>> dictionary = new()
+{
+    { "one-two", new() {1, 2} },
+    { "one-two-three", new() {1, 2, 3} },
+};
+
+#!markdown
+
+#### inline using statement
+
+#!csharp
+
+using System.IO;
+
+public void DoWork()
+{
+    using (var memoryStream = new MemoryStream())
+    {
+        // do work with memoryStream
+    }
+}
+
+#!csharp
+
+using System.IO;
+
+public void DoWork()
+{
+    using var memoryStream = new MemoryStream();
+    // do work with memoryStream
+}
+
+#!markdown
+
+#### logic operator
+
+#!csharp
+
+var number = 69;
+if (number == 1 || number == 3)
+{
+    Console.WriteLine("Number is 1 or 3");
+}
+
+#!csharp
+
+var number = 69;
+if (number is 1 or 3)
+{
+    Console.WriteLine("Number is 1 or 3");
+}
