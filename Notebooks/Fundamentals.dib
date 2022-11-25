@@ -959,3 +959,45 @@ if (number is 1 or 3)
 {
     Console.WriteLine("Number is 1 or 3");
 }
+
+#!csharp
+
+var number = 69;
+if (number >= 10 && number <= 25)
+{
+    Console.WriteLine("Between 10 and 25.");
+}
+
+#!csharp
+
+var number = 69;
+if (number is >= 10 and <= 25)
+{
+    Console.WriteLine("Between 10 and 25.");
+}
+
+#!markdown
+
+#### type check
+
+#!csharp
+
+record RacingCar(int Id, string Name);
+
+RacingCar car = new(1, "Fast");
+
+if (!(car is RacingCar))
+{
+    Console.WriteLine("Car is not racing car");
+}
+
+#!csharp
+
+record RacingCar(int Id, string Name);
+
+RacingCar car = new(1, "Fast");
+
+if (car is not RacingCar)
+{
+    Console.WriteLine("Car is not racing car");
+}
