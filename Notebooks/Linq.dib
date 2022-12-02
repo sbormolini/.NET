@@ -323,3 +323,26 @@ var canDrinkv3 = from p in people
     where age > 21
     orderby age descending
     select p;
+
+#!markdown
+
+chunk collection
+source: @MilanJovanovic
+
+#!csharp
+
+// .NET 5<
+public IEnumerable<T[]> OldChunk<T>(IEnumerable<T> enumerable, int size)
+{
+    while (enumerable.Any())
+    {
+        yield return enumerable.Take(size).ToArray();
+        enumerable = enumerable.Skip(size);
+    }
+}
+
+// .NET 6
+public IEnumerable<T[]> BetterChunk<T>(IEnumerable<T> enumerable, int size)
+{
+    return enumerable.Chunk(size);
+}
