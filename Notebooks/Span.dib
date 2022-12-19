@@ -33,3 +33,18 @@ foreach (var value in array)
 
 Console.WriteLine($"The sum is {arraySum}");
 // Output:  The sum is 4950
+
+#!csharp
+
+using System.Runtime.InteropServices;
+
+var random = new Random(420);
+var items = Enumerable.Range(0, 100).Select(x => random.Next()).ToList();
+
+Span<int> listAsSpan = CollectionsMarshal.AsSpan(items);
+ref var searchSpace = ref MemoryMarshal.GetReference(listAsSpan);
+for (var i = 0; i < listAsSpan.Length; i++)
+{
+    var item = Unsafe.Add(ref searchSpace, i);
+    Console.WriteLine(item);
+}
