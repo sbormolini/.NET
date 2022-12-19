@@ -1,0 +1,35 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+
+#!markdown
+
+# What Is Span<T>?
+System.Span<T> is a new value type at the heart of .NET. It enables the representation of contiguous regions of arbitrary memory, regardless of whether that memory is associated with a managed object, is provided by native code via interop, or is on the stack. And it does so while still providing safe access with performance characteristics like that of arrays.
+
+https://learn.microsoft.com/en-us/dotnet/api/system.span-1?view=net-7.0<br>
+https://learn.microsoft.com/en-us/archive/msdn-magazine/2018/january/csharp-all-about-span-exploring-a-new-net-mainstay
+
+#!csharp
+
+// For example, you can create a Span<T> from an array:
+
+var arr = new byte[10];
+Span<byte> bytes = arr; // Implicit cast from T[] to Span<T>
+
+#!csharp
+
+// Create a span over an array.
+var array = new byte[100];
+Span<byte> arraySpan = new(array);
+
+byte data = 0;
+for (int ctr = 0; ctr < arraySpan.Length; ctr++)
+    arraySpan[ctr] = data++;
+
+int arraySum = 0;
+foreach (var value in array)
+    arraySum += value;
+
+Console.WriteLine($"The sum is {arraySum}");
+// Output:  The sum is 4950
