@@ -1,0 +1,5 @@
+.vs
+src/obj
+src/debug
+tests/obj
+test/debug
