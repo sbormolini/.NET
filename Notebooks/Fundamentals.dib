@@ -1,3 +1,7 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+
 #!markdown
 
 Simple delegate samples
@@ -1000,4 +1004,29 @@ RacingCar car = new(1, "Fast");
 if (car is not RacingCar)
 {
     Console.WriteLine("Car is not racing car");
+}
+
+#!markdown
+
+#### Task.WhenAll
+https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task.whenall?view=net-7.0<br>
+Code Source: @MilanJovanovic
+
+#!csharp
+
+public async Task CallMultipleApis()
+{
+    await CallFirstApiAsync();
+    await CallSecondApiAsync();
+    await CallThirdApiAsync();
+}
+
+#!csharp
+
+public async Task CallMultipleApis()
+{
+    await Task.WhenAll(
+        CallFirstApiAsync(),
+        CallSecondApiAsync(),
+        CallThirdApiAsync());
 }
