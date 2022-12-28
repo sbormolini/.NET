@@ -1030,3 +1030,20 @@ public async Task CallMultipleApis()
         CallSecondApiAsync(),
         CallThirdApiAsync());
 }
+
+#!markdown
+
+#### Extension Methods (C# Programming Guide)
+https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods<br>
+source code: @marcominerva
+
+#!csharp
+
+(var firstName, var lastName) = ("Sandro", "Bormolini");
+var fullName = (firstName, lastName).Concatenate();
+Console.WriteLine(fullName);
+
+public static class TupleExtension
+{
+    public static string Concatenate(this (string First, string Second) input) => $"{input.First} {input.Second}";
+}
