@@ -1047,3 +1047,56 @@ public static class TupleExtension
 {
     public static string Concatenate(this (string First, string Second) input) => $"{input.First} {input.Second}";
 }
+
+#!markdown
+
+https://learn.microsoft.com/en-us/dotnet/standard/events/
+https://learn.microsoft.com/en-us/dotnet/api/system.action-1?view=net-7.0
+source code: hachyderm.io/@davidfowl
+
+#!csharp
+
+class Game
+{
+    public Action<GameStartedEvent> GameStarted { get; set; }
+    public Action<GameCompletedEvent> GameCompleted { get; set; }
+    public Action<QuestionEvent> OnQuestion { get; set; }
+
+    public void Run() { }
+}
+
+class QuestionEvent
+{
+    public Question Question { get; init; }
+    public Answer Answer { get; set; }
+    public bool Quit { get; set; }
+}
+
+public record GameStartedEvent(string Name);
+public record GameCompletedEvent(string Winner);
+public record Question(string Text);
+public record Answer(string? Line);
+
+void Events(Game game)
+{
+    game.GameStarted += e => { Console.WriteLine($"Welcome to {e.Name}"); };
+
+    game.GameCompleted += e => { Console.WriteLine($"The winner is {e.Winner}"); };
+
+    game.OnQuestion += e => { 
+        var question = e.Question; 
+        Console.WriteLine(question.Text);
+        var line = Console.ReadLine();
+        if (line is null)
+        {
+            // exit the entire flow
+            e.Quit = true;
+        }
+        else
+        {
+            e.Answer = new Answer(line);
+        }
+    };
+
+    game.Run();
+}
