@@ -1100,3 +1100,24 @@ void Events(Game game)
 
     game.Run();
 }
+
+#!markdown
+
+#### Simply null argument assertions
+https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception.throwifnull?view=net-7.0<br>
+Code source: @MilanJovanovic
+
+#!csharp
+
+public void UsefulMethod(object obj)
+{
+    if (obj is null)
+    {
+        throw new ArgumentNullException(nameof(obj));
+    }
+}
+
+public void UsefulMethodSimplified(object obj)
+{
+    ArgumentNullException.ThrowIfNull(obj);
+}
