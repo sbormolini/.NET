@@ -1121,3 +1121,31 @@ public void UsefulMethodSimplified(object obj)
 {
     ArgumentNullException.ThrowIfNull(obj);
 }
+
+#!markdown
+
+##### Efficiently check for duplicates in a collection
+Code source: @MilanJovanovic
+
+#!csharp
+
+public static bool ContainsDuplicates<T>(this IEnumerable<T> enumerable)
+{
+    HashSet<T> knownElements = new();
+    foreach (T element in enumerable)
+    {
+        if (!knownElements.Add(element))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// usage
+List<int> numbers = new() {1, 2, 3, 4, 4 , 5};
+if (numbers.ContainsDuplicates())
+{
+    // do something when there are duplicates
+}
