@@ -1,3 +1,25 @@
 #!meta
 
 {"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+
+#!markdown
+
+Create Graph client using Managed identity<br>
+Source: https://learn.microsoft.com/en-us/azure/app-service/scenario-secure-app-access-microsoft-graph-as-app?tabs=azure-powershell
+
+#!csharp
+
+// Create the Graph service client with a ChainedTokenCredential which gets an access
+// token using the available Managed Identity or environment variables if running
+// in development.
+var credential = new ChainedTokenCredential(new ManagedIdentityCredential(), new EnvironmentCredential());
+var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://graph.microsoft.com/.default" }));
+var accessToken = token.Token;
+
+log.LogInformation("Authenticate to MS Graph with Managend Identity");
+var graphServiceClient = new GraphServiceClient(
+    new DelegateAuthenticationProvider((requestMessage) =>
+    {
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
+        return Task.CompletedTask;
+    }));
