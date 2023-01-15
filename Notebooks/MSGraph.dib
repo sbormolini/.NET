@@ -23,3 +23,46 @@ var graphServiceClient = new GraphServiceClient(
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
         return Task.CompletedTask;
     }));
+
+#!markdown
+
+Get users from Graph client<br>
+Source: https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+
+#!csharp
+
+// MSGraphUser is a DTO class being used to hold User information from the graph service client call
+List<MSGraphUser> msGraphUsers = new();
+try
+{
+    log.LogInformation("Get users from MS Graph API");
+    var users = await graphServiceClient.Users.Request().GetAsync();
+    foreach (var u in users)
+    {
+        MSGraphUser user = new()
+        {
+            userPrincipalName = u.UserPrincipalName,
+            displayName = u.DisplayName,
+            mail = u.Mail,
+            jobTitle = u.JobTitle
+        };
+
+        msGraphUsers.Add(user);
+    }
+}
+catch (Exception ex)
+{
+    string msg = ex.Message;
+}
+
+public class MSGraphUser
+{
+    public string id { get; set; }
+    public string userPrincipalName { get; internal set; }
+    public string displayName { get; internal set; }
+    public string givenName { get; set; }
+    public string surName { get; set; }
+    public string mail { get; internal set; }
+    public string jobTitle { get; internal set; }
+    public bool accountEnabled { get; set; }
+}
