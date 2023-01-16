@@ -66,3 +66,22 @@ public class MSGraphUser
     public string jobTitle { get; internal set; }
     public bool accountEnabled { get; set; }
 }
+
+#!markdown
+
+Add object to group<br>
+Source: https://learn.microsoft.com/en-us/graph/api/group-post-members?view=graph-rest-1.0&tabs=csharp
+
+#!csharp
+
+// add member
+GraphServiceClient graphClient = new GraphServiceClient( authProvider );
+
+var directoryObject = new DirectoryObject
+{
+	Id = "{id}"
+};
+
+await graphClient.Groups["{group-id}"].Members.References
+	.Request()
+	.AddAsync(directoryObject);
