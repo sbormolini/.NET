@@ -85,3 +85,23 @@ var directoryObject = new DirectoryObject
 await graphClient.Groups["{group-id}"].Members.References
 	.Request()
 	.AddAsync(directoryObject);
+
+#!markdown
+
+Assign role
+Source: https://learn.microsoft.com/en-us/azure/active-directory/roles/custom-assign-graph
+
+#!csharp
+
+POST https://graph.microsoft.com/v1.0/deviceManagement/roleDefinitions/{roleDefinitionId}/roleAssignments
+Content-type: application/json
+Content-length: 193
+
+{
+  "@odata.type": "#microsoft.graph.roleAssignment",
+  "displayName": "Display Name value",
+  "description": "Description value",
+  "resourceScopes": [
+    "Resource Scopes value"
+  ]
+}
