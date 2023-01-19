@@ -105,3 +105,21 @@ Content-length: 193
     "Resource Scopes value"
   ]
 }
+
+#!markdown
+
+Create invitation<br>
+Source: https://learn.microsoft.com/en-us/graph/api/invitation-post?view=graph-rest-1.0&tabs=http
+
+#!csharp
+
+// invitate user
+var invitation = Invitation
+{
+	InvitedUserEmailAddress = "admin@fabrikam.com",
+	InviteRedirectUrl = "https://myapp.contoso.com"
+};
+
+await graphServiceClient.Invitations
+	.Request()
+	.AddAsync(invitation);
