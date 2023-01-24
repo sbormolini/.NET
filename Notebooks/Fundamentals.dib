@@ -1149,3 +1149,32 @@ if (numbers.ContainsDuplicates())
 {
     // do something when there are duplicates
 }
+
+#!markdown
+
+##### How to use expression-body constructors
+Code source: @MilanJovanovic
+
+#!csharp
+
+public class person
+{
+    public string Name { get; }
+    public int Age { get; }
+
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+}
+
+#!csharp
+
+public class person
+{
+    public string Name { get; }
+    public int Age { get; }
+
+    public Person(string name, int age) => (Name, Age) = (name, age);
+}
