@@ -1178,3 +1178,26 @@ public class person
 
     public Person(string name, int age) => (Name, Age) = (name, age);
 }
+
+#!markdown
+
+##### DateOnly and TimeOnly
+https://learn.microsoft.com/en-us/dotnet/api/system.dateonly?view=net-7.0<br>
+https://learn.microsoft.com/en-us/dotnet/api/system.timeonly?view=net-7.0<br>
+Code source: @MilanJovanovic
+
+#!csharp
+
+DateOnly todayDate = new(2022, 1, 20);
+DateOnly currentUtcDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+#!csharp
+
+// sample constructors
+//public TimeOnly(int hour, int minute)
+//public TimeOnly(int hour, int minute, int second)
+//public TimeOnly(int hour, int minute, int second, int millisecond)
+
+TimeOnly nineInTheMorning = new TimeOnly(9,0);
+
+TimeOnly currentUtcTime = TimeOnly.FromDateTime(DateTime.UtcNow);
