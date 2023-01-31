@@ -1,0 +1,46 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+
+#!markdown
+
+Primary Constructors
+https://steven-giesel.com/blogPost/a210c97e-fe68-45de-afa1-d053d75f6f7d
+https://www.youtube.com/watch?v=hcCT5J-SKEA
+
+#!csharp
+
+// old 
+using System;
+
+Console.WriteLine("Sali zäme");
+
+public class UserService
+{
+    private readonly IUserRepository _repo;
+
+    public UserService(IUserRepository repo) => _repo = repo;
+    public void CreateUser() => _repo.CreateUser();
+}
+
+public interface IUserRepository
+{
+    void CreateUser();
+}
+
+#!csharp
+
+// Primary Constructors
+using System;
+
+Console.WriteLine("Sali zäme");
+
+public class UserService(IUserRepository repo)
+{
+    public void CreateUser() => repo.CreateUser();
+}
+
+public interface IUserRepository
+{
+    void CreateUser();
+}
