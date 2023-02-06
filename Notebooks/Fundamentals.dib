@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML","aliases":[]},{"name":"sql","languageName":"SQL","aliases":[]},{"name":"kql","languageName":"KQL","aliases":[]},{"name":"mermaid","languageName":"Mermaid","aliases":[]},{"name":"httpRequest","languageName":"http","aliases":[]},{"name":"value","aliases":[]},{"name":"vscode","languageName":null,"aliases":["frontend"]}]}}
 
 #!markdown
 
@@ -1225,3 +1225,20 @@ var orange = banana with
 
 Console.WriteLine($"Name: {banana.Name}, Price: {banana.Price}");
 Console.WriteLine($"Name: {orange.Name}, Price: {orange.Price}");
+
+#!markdown
+
+#### eager exepctions in iterator block with local functions
+Code source: @MilanJovanovic
+
+#!csharp
+
+public IEnumerable<string> SequenceToLowercase(IEnumerable<string> input)
+{
+    if (!input.Any())
+        throw new ArgumentException("The sequence is empty");
+
+    return input.Select(ToLowercase);
+
+    static string ToLowercase(string val) => val.ToLower();
+}
