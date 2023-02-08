@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML","aliases":[]},{"name":"sql","languageName":"SQL","aliases":[]},{"name":"kql","languageName":"KQL","aliases":[]},{"name":"mermaid","languageName":"Mermaid","aliases":[]},{"name":"httpRequest","languageName":"http","aliases":[]},{"name":"value","aliases":[]},{"name":"vscode","languageName":null,"aliases":["frontend"]}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML","aliases":[]},{"name":"sql","languageName":"SQL","aliases":[]},{"name":"kql","languageName":"KQL","aliases":[]},{"name":"mermaid","languageName":"Mermaid","aliases":[]},{"name":"httpRequest","languageName":"http","aliases":[]},{"name":"value","aliases":[]},{"name":"vscode","aliases":["frontend"],"languageName":null}]}}
 
 #!markdown
 
@@ -1241,4 +1241,22 @@ public IEnumerable<string> SequenceToLowercase(IEnumerable<string> input)
     return input.Select(ToLowercase);
 
     static string ToLowercase(string val) => val.ToLower();
+}
+
+#!markdown
+
+#### lock statement - ensure exclusive access to a shared resource
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/lock<br>
+Code source: @MilanJovanovic
+
+#!csharp
+
+private static readonly _lockObject = new();
+
+public void ResourceIntensiveMethod()
+{
+    lock(_lockObject)
+    {
+        DoSomeWork();
+    }
 }
