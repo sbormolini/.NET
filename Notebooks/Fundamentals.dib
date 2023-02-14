@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"fsharp","languageName":"F#","aliases":["f#","F#"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML","aliases":[]},{"name":"sql","languageName":"SQL","aliases":[]},{"name":"kql","languageName":"KQL","aliases":[]},{"name":"mermaid","languageName":"Mermaid","aliases":[]},{"name":"httpRequest","languageName":"http","aliases":[]},{"name":"value","aliases":[],"languageName":null},{"name":"vscode","aliases":["frontend"],"languageName":null}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"fsharp","languageName":"F#","aliases":["f#","F#"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML","aliases":[]},{"name":"sql","languageName":"SQL","aliases":[]},{"name":"kql","languageName":"KQL","aliases":[]},{"name":"mermaid","languageName":"Mermaid","aliases":[]},{"name":"httpRequest","languageName":"http","aliases":[]},{"name":"value","aliases":[]},{"name":"vscode","aliases":["frontend"],"languageName":null}]}}
 
 #!markdown
 
