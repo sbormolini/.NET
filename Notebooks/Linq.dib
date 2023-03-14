@@ -1,3 +1,7 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","aliases":[]},{"name":"vscode","languageName":null,"aliases":["frontend"]}]}}
+
 #!markdown
 
 # Language-Integrated Query (LINQ)
@@ -345,4 +349,21 @@ public IEnumerable<T[]> OldChunk<T>(IEnumerable<T> enumerable, int size)
 public IEnumerable<T[]> BetterChunk<T>(IEnumerable<T> enumerable, int size)
 {
     return enumerable.Chunk(size);
+}
+
+#!markdown
+
+##### Enumerable.Zip Method
+https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.zip?view=net-8.0
+
+#!csharp
+
+// code source: @StasYakhnenko
+public void PrintCoordinates(double[] xCoords, double[] yCoords)
+{
+    // Zip combines two sequences into one where each element is a tuple, constructed from two elements
+    foreach (var (x, y) in xCoords.Zip(yCoords))
+    {
+        Console.WriteLine($"Coordinate. X={x} Y={y}");
+    }
 }
