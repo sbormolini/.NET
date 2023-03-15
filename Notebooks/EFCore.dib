@@ -1,0 +1,44 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"vscode","aliases":["frontend"]}]}}
+
+#!markdown
+
+EF Core: Buffering / Streaming
+https://learn.microsoft.com/en-us/ef/core/
+
+#!csharp
+
+// source code: @StasYakhnenko
+
+// buffering; all the data is located at once
+public async Task FetchCustomerBuffered()
+{
+    var customers = await _context
+        .Customers.AsNoTracking()
+        .Where(x => x.LastActivityDate =< targetDate)
+        .ToListAsync();
+
+    foreach (var customer in customers)
+    {
+        // do task
+    }
+}
+
+#!csharp
+
+// source code: @StasYakhnenko
+
+// streaming; singel result each time
+public async Task FetchCustomerStreaming()
+{
+    var customers = _context
+        .Customers.AsNoTracking()
+        .Where(x => x.LastActivityDate =< targetDate)
+        .AsAsyncEnumerable();
+
+    foreach (var customer in customers)
+    {
+        // do task
+    }
+}
