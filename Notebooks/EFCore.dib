@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"vscode","aliases":["frontend"]}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"vscode","aliases":["frontend"],"languageName":null}]}}
 
 #!markdown
 
@@ -41,4 +41,30 @@ public async Task FetchCustomerStreaming()
     {
         // do task
     }
+}
+
+#!markdown
+
+##### Multiple DbContext
+https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/<br>
+
+Here are a few scenarios of why you would want to create multiple DbContexts.
+- Multiple databases
+- Separating concerns
+- Modular monolith
+
+source: milan jovanovic
+
+#!csharp
+
+public class CatalogDbContext : DbContext
+{
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+}
+
+public class CatalogDbContext : DbContext
+{
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }
