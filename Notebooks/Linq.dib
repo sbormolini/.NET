@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","aliases":[]},{"name":"vscode","languageName":null,"aliases":["frontend"]}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":["frontend"],"name":"vscode"}]}}
 
 #!markdown
 
@@ -367,3 +367,13 @@ public void PrintCoordinates(double[] xCoords, double[] yCoords)
         Console.WriteLine($"Coordinate. X={x} Y={y}");
     }
 }
+
+#!markdown
+
+##### Tracking vs. No-Tracking Queries (EF)
+They're quicker to execute because there's no need to set up the change tracking information. If you don't need to update the entities retrieved from the database, then a no-tracking query should be used.
+https://learn.microsoft.com/en-us/ef/core/querying/tracking
+
+#!csharp
+
+var blogs = context.Blogs.AsNoTracking().ToList();
