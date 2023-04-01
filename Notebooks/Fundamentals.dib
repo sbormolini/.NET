@@ -1323,3 +1323,24 @@ app.MapPost("/login", ([FromBody]Login login) =>
 });
 
 app.Run();
+
+#!markdown
+
+.NET Simple Json serialization samples
+https://www.youtube.com/shorts/6E9BTi21IgY
+https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer?view=net-8.0
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record
+
+#!csharp
+
+using System.Text.Json;
+
+var user = new User("Sandro", "Bormolni");
+
+var jsonString = JsonSerializer.Serialize(user);
+Console.WriteLine(jsonString);
+
+var newUser = JsonSerializer.Deserialize<User>(jsonString);
+Console.WriteLine(newUser);
+
+record User (string FirstName, string LastName);
