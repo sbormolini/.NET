@@ -1326,10 +1326,10 @@ app.Run();
 
 #!markdown
 
-.NET Simple Json serialization samples
-https://www.youtube.com/shorts/6E9BTi21IgY
-https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer?view=net-8.0
-https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record
+##### .NET Simple Json serialization samples
+https://www.youtube.com/shorts/6E9BTi21IgY<br>
+https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializer?view=net-8.0<br>
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record<br>
 
 #!csharp
 
@@ -1344,3 +1344,34 @@ var newUser = JsonSerializer.Deserialize<User>(jsonString);
 Console.WriteLine(newUser);
 
 record User (string FirstName, string LastName);
+
+#!markdown
+
+#### CSV with CsvHelper
+Source: https://www.youtube.com/shorts/oWC9VIXafsQ
+
+#!csharp
+
+using System.Globalization;
+using CsvHelper;
+using CsvProcessing;
+
+using (var writer = new StreamWriter("product.csv"))
+{
+    using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+    {
+        csv.WriteRecords(Product.GetProducts());
+    }
+}
+
+using (var reader = new StreamWriter("product.csv"))
+{
+    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+    {
+        var records = csv.GetRecords<Product>();
+        foreach (var record in records)
+        {
+            Console.WriteLine(record);
+        }
+    }
+}
