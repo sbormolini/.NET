@@ -1375,3 +1375,24 @@ using (var reader = new StreamWriter("product.csv"))
         }
     }
 }
+
+#!markdown
+
+##### Ulid
+Ulid is sortable, random id generator<br>
+Ulid = order + uniqueness<br>
+https://github.com/Cysharp/Ulid<br>
+https://www.nuget.org/packages/Ulid<br>
+Code source: @StasYakhnenko
+
+#!csharp
+
+#r "nuget:Ulid,1.2.6"
+
+var firstId = Ulid.NewUlid();
+Console.WriteLine(firstId);
+
+await Task.Delay(1000);
+
+var secondId = Ulid.NewUlid();
+Console.WriteLine(secondId);
