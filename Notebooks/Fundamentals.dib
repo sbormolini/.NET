@@ -1396,3 +1396,18 @@ await Task.Delay(1000);
 
 var secondId = Ulid.NewUlid();
 Console.WriteLine(secondId);
+
+#!markdown
+
+#### asp.net rewrite rules
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.rewrite.rewriteoptions?view=aspnetcore-7.0<br>
+Source Code: @StasYakhnenko
+
+#!csharp
+
+var rewrite = new RewriteOptions()
+    .AddRewrite("help-articles", "help", true)
+    .AddRedirect("help-desk", "help")
+    .AddRedirect("help-articels/(.*)", "help/$1");
+
+app.UseRewriter(rewrite);
