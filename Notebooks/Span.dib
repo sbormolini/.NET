@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":["c#","cs"],"languageName":"C#","name":"csharp"},{"aliases":["f#","fs"],"languageName":"F#","name":"fsharp"},{"aliases":[],"languageName":"HTML","name":"html"},{"aliases":[],"languageName":"http","name":"httpRequest"},{"aliases":["js"],"languageName":"JavaScript","name":"javascript"},{"aliases":[],"languageName":"KQL","name":"kql"},{"aliases":[],"languageName":"Mermaid","name":"mermaid"},{"aliases":["powershell"],"languageName":"PowerShell","name":"pwsh"},{"aliases":[],"languageName":"SQL","name":"sql"},{"aliases":[],"name":"value"}]}}
 
 #!markdown
 
@@ -47,4 +47,41 @@ for (var i = 0; i < listAsSpan.Length; i++)
 {
     var item = Unsafe.Add(ref searchSpace, i);
     Console.WriteLine(item);
+}
+
+#!markdown
+
+##### C# 11.0 new features: Span<char> pattern matching
+Source: https://endjin.com/blog/2023/04/dotnet-csharp-11-pattern-matching-span-char
+
+#!csharp
+
+string name = "Lobby Lud";
+
+Console.WriteLine(name switch
+{
+    "Lobby Lud" => "I claim my five pounds",
+    "What?" => "Who?",
+    _ => throw new ArgumentException("Invalid name")
+});
+
+#!csharp
+
+string substring = name[1..5]; // Allocates a new string on the GC heap
+ReadOnlySpan<char> substringSpan = name.AsSpan[1..5];
+Console.WriteLine(substring)
+
+#!csharp
+
+if (name.SequenceEqual("Lobby Lud"))
+{
+    Console.WriteLine("I claim my five pounds");
+}
+
+#!csharp
+
+ReadOnlySpan<byte> textUtf8 = "Hello"u8;
+if (textUtf8.SequenceEqual("Hello"u8))
+{
+    Console.WriteLine("Match");
 }
