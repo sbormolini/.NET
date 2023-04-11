@@ -85,3 +85,31 @@ if (textUtf8.SequenceEqual("Hello"u8))
 {
     Console.WriteLine("Match");
 }
+
+#!markdown
+
+Split string operation 
+source code: @StasYaknenko
+
+#!csharp
+
+string email = "sandro.bormolini@test.local";
+
+#!csharp
+
+var domain = email.Split('@').ElementAtOrDefault(1);
+if (domain is null)
+{
+    throw new ArgumentException("Invaild email");
+}
+return domain;
+
+#!csharp
+
+var emailAsSpan = email.AsSpan();
+var atIndex = emailAsSpan.IndexOf('@');
+if (atIndex == -1)
+{
+    throw new ArgumentException("Invaild email");
+}
+return emailAsSpan[(atIndex + 1)..].ToString();
