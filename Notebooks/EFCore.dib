@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"name":"csharp","languageName":"C#","aliases":["c#","C#"]},{"name":"vscode","aliases":["frontend"],"languageName":null}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":["C#","c#"],"languageName":"C#","name":"csharp"},{"aliases":["frontend"],"name":"vscode"}]}}
 
 #!markdown
 
@@ -68,3 +68,23 @@ public class CatalogDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
 }
+
+#!markdown
+
+#### Bulk operation EF Core 7.0
+https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-7.0/whatsnew
+Source code: @StasYakhnenko
+
+#!csharp
+
+// Bulk update
+await _context
+    .Customers
+    .Where(x => x.LastActivityDate =< _activityDateThreshold)
+    .ExecuteUpdateAsync(x => x.SetProperty(n => n.IsActive, true));
+
+// Bulk delete
+await _context
+    .Customers
+    .Where(x => x.DeletedAt =< DateTime.UtcNow.AddDays(-90))
+    .ExecuteDeleteAsync();
