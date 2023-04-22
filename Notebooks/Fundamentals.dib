@@ -1490,3 +1490,18 @@ if (user is not null && user.Subscription is not null)
 
 // with null-conditional operator
 user?.Subscription?.Renew();
+
+#!markdown
+
+#### Random Class
+https://learn.microsoft.com/en-us/dotnet/api/system.random?view=net-8.0
+
+#!csharp
+
+Random random = new();
+
+for (int i = 0; i < 10; i++)
+{
+    double d = random.NextDouble() * 5 + 155;
+    Console.WriteLine($"Value: {temp}");
+}
