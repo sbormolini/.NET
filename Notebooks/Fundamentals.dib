@@ -1505,3 +1505,38 @@ for (int i = 0; i < 10; i++)
     double d = random.NextDouble() * 5 + 155;
     Console.WriteLine($"Value: {temp}");
 }
+
+#!markdown
+
+#### Mapping domain object
+Source: https://www.youtube.com/shorts/7H8j04t34cY
+
+#!csharp
+
+public class Person
+{
+    public Guid Id {get; set;}
+    public string FirstName {get; set;}
+    public string LastName {get; set;}
+    public string Email {get; set;}
+    public string ProfilePhotoUrl {get; set;}
+}
+
+public class PersonDetails
+{
+    public Guid Id {get; set;}
+    public string Name {get; set;}
+    public string Email {get; set;}
+    public string ProfilePhotoUrl {get; set;}
+
+    public static PersonDetails CreateFromPerson(Person person)
+    {
+        return new PersonDetails
+        {
+            Id = person.Id,
+            Name = $"{person.FirstName} {person.FirstName}",
+            Email = person.Email,
+            ProfilePhotoUrl = person.ProfilePhotoUrl
+        };
+    }
+}
