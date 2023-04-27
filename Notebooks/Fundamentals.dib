@@ -1584,3 +1584,27 @@ public class PersonDetails
         return JsonSerializer.Serialize(this);
     }
 }
+
+#!markdown
+
+#### Difference Int / Decimal
+https://learn.microsoft.com/en-us/dotnet/api/system.decimal?view=net-8.0
+https://learn.microsoft.com/en-us/dotnet/api/system.int32?view=net-8.0
+
+#!csharp
+
+static int Calculate()
+{
+    return (int) ((0.7 + 0.1) * 10);
+}
+
+Console.WriteLine(Calculate());
+
+#!csharp
+
+static decimal Calculate()
+{
+    return (decimal) ((0.7 + 0.1) * 10);
+}
+
+Console.WriteLine(Calculate());
