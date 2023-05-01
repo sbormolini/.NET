@@ -42,3 +42,45 @@ public static string GenerateIoTSasToken(
 
     return token;
 }
+
+#!markdown
+
+#### Using Azure Maps
+https://learn.microsoft.com/en-us/azure/azure-maps/
+
+#!csharp
+
+using SampleApp.Common.Models.Weather;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.Json;
+
+namespace SampleApp.Services;
+
+public class WeatherService : IWeatherService
+{
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string _baseUri = "https://atlas.microsoft.com/weather/currentConditions/";
+    private readonly string _apiKey;
+
+    public WeatherService(IHttpClientFactory httpClientFactory, string apiKey)
+    {
+        _httpClientFactory = httpClientFactory;
+        _apiKey = apiKey;
+    }
+
+    public async Task<WeatherResult> GetWeatherAsync(string query)
+    {
+        var httpClient = _httpClientFactory.CreateClient("WeatherClient");
+
+        httpClient.BaseAddress = new Uri($"{_baseUri}");
+        var response = await httpClient.GetAsync($"json?api-version=1.1&query={query}&subscription-key={_apiKey}");
+        var content = await response.Content.ReadAsStringAsync();
+
+        var weatherApiData = JsonSerializer.Deserialize<WeatherApiResponse>(content);
+
+        return weatherApiData.results.FirstOrDefault(); ;
+    }
+}
