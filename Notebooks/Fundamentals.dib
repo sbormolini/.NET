@@ -1608,3 +1608,49 @@ static decimal Calculate()
 }
 
 Console.WriteLine(Calculate());
+
+#!markdown
+
+#### Implementation of Singleton class via lazy loading in .NET
+https://learn.microsoft.com/en-us/dotnet/api/system.lazy-1?view=net-8.0
+<br>
+The Lazy<T> class in .NET is a thread-safe wrapper around a value that is initialized only when it is first accessed. This class is useful when the creation of the value is expensive or when the value is not always needed during the lifetime of an object. By deferring the initialization until the first access, the Lazy<T> class helps to reduce the startup time and memory usage of an application.
+<br>
+code source: @MuhamamdWaseem
+
+#!csharp
+
+// origin
+public sealed class Singleton
+{
+    private static Singleton? Instance = null;
+    private static readonly object lockThread = new();
+    
+    private Singleton() {}
+    public static Singleton GetInstance
+    {
+        get
+        {
+            lock(lockThread)
+            {
+                if (Instance == null)
+                {
+                    Instance = new();
+                }
+                return Instance;
+            }
+        }
+    }
+
+}
+
+#!csharp
+
+// lazy implementation
+public sealed class Singleton
+{
+    private static readonly Lazy<Singleton> lazy = new(() => new());
+    public static Singleton Instance { get { return lazy.Value; } }
+    
+    private Singleton() {}
+}
