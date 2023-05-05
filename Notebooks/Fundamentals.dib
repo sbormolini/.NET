@@ -1654,3 +1654,38 @@ public sealed class Singleton
     
     private Singleton() {}
 }
+
+#!markdown
+
+#### Generate Random strings
+https://github.com/bchavez/Bogus
+
+#!csharp
+
+// Generate random string
+static string GenerateRandomStringv1(int length)
+{
+    var random = new Random();
+    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return new string(Enumerable.Repeat(chars, length)
+        .Select(s => s[random.Next(s.Length)]).ToArray());
+}
+
+#!csharp
+
+// code source: https://www.youtube.com/shorts/7cQ7-E_DKsY
+// @Codewrinkles
+static string GenerateRandomStringv2(int length)
+{
+    string random = string.Empty;
+    Enumerable.Range(48, 75)
+        .Where(i => i < 58 || i > 64 && i < 91 || i > 96)
+        .OrderBy(o => new Random().Next())
+        .ToList().ForEach(i => random += Convert.ToChar(i));
+
+    return random.Substring(new Random().Next(0, random.Length - length), length);
+}
+
+#!csharp
+
+Console.WriteLine(GenerateRandomStringv2(10));
