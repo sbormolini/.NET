@@ -377,3 +377,19 @@ https://learn.microsoft.com/en-us/ef/core/querying/tracking
 #!csharp
 
 var blogs = context.Blogs.AsNoTracking().ToList();
+
+#!markdown
+
+#### Linq MinBy
+https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.minby?view=net-8.0
+code source: @MilanJovanovic
+
+#!csharp
+
+// .NET 5<
+var cheapest = foodList.OrderBy(x => x.Price).FirstOrDefault();
+
+#!csharp
+
+// .NET 6 
+var cheapest = foodList.MinBy(x => x.Price);
