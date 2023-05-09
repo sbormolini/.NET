@@ -113,3 +113,28 @@ if (atIndex == -1)
     throw new ArgumentException("Invaild email");
 }
 return emailAsSpan[(atIndex + 1)..].ToString();
+
+#!markdown
+
+#### Fastest way to work with lists in c#
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.collectionsmarshal?view=net-8.0
+source: https://www.youtube.com/shorts/QqNmUmmVH-Y
+This method is unsafe > be aware
+@nickchapsas
+
+#!csharp
+
+using System.Runtime.InteropServices;
+
+List<int> list = new List<int>
+{
+    69, 420, 1337
+};
+
+var span = CollectionsMarshal.AsSpan(list);
+
+for (var i = 0; i < span.Length; i++)
+{
+    var value = span[i];
+    //list.Clear();
+}
