@@ -1689,3 +1689,45 @@ static string GenerateRandomStringv2(int length)
 #!csharp
 
 Console.WriteLine(GenerateRandomStringv2(10));
+
+#!markdown
+
+#### GetAwaiter().GetResult()
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.taskawaiter.getresult?view=net-7.0
+code source: @BelloneDavide
+
+#!csharp
+
+public class TestMachine 
+{
+    public async Task<string> GetDataAsync()
+    {
+        return await Task.FromResult("Hello World");
+    }
+}
+
+TestMachine engine = new();
+
+// With .Result exeptions are wrapped insie an AggregateException
+try
+{
+    _ = engine.GetDataAsync().Result;
+}
+catch (EncoderFallbackException e)
+{
+    // gets ignored
+}
+catch (AggregateException ae)
+{
+    // falls here
+}
+
+// With 
+try
+{
+    _ = engine.GetDataAsync().GetAwaiter().GetResult();
+}
+catch (EncoderFallbackException ex)
+{
+    // correctly falls here
+}
