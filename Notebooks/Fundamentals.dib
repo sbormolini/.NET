@@ -1731,3 +1731,27 @@ catch (EncoderFallbackException ex)
 {
     // correctly falls here
 }
+
+#!markdown
+
+#### Merge nested IFs in into one condition 
+
+#!csharp
+
+if (!string.IsNullOrEmpty(user.Name))
+{
+    if (user.Age > 18)
+    {
+        if (user.HasLicense)
+        {
+            // do something
+        }
+    }   
+}
+
+#!csharp
+
+if (!string.IsNullOrEmpty(user.Name) && user.Age > 18 && user.HasLicense)
+{
+    // do something
+}
