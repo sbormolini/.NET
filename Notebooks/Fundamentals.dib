@@ -1755,3 +1755,40 @@ if (!string.IsNullOrEmpty(user.Name) && user.Age > 18 && user.HasLicense)
 {
     // do something
 }
+
+#!markdown
+
+#### ValueTask<TResult> Struct
+Using ValueTask for high-performance asynchronous methods taking into account ValueTask restrictions<br>
+https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.valuetask-1?view=net-7.0<br>
+code source: Harutyan Shmavonyan
+
+#!csharp
+
+// Task<int> implementation
+public async Task<int> GetCachedResultAsync()
+{
+    if (cache.TryGetValue(key, out int result))
+    {
+        return result;
+    }
+
+    result = await CalculateResultAsync();
+    cache[key] = result;
+    return result;
+}
+
+#!csharp
+
+// ValueTask<int> implementation
+public async ValueTask<int> GetCachedResultAsync()
+{
+    if (cache.TryGetValue(key, out int result))
+    {
+        return result;
+    }
+
+    result = await CalculateResultAsync();
+    cache[key] = result;
+    return result;
+}
