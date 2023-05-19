@@ -1758,37 +1758,62 @@ if (!string.IsNullOrEmpty(user.Name) && user.Age > 18 && user.HasLicense)
 
 #!markdown
 
-#### ValueTask<TResult> Struct
-Using ValueTask for high-performance asynchronous methods taking into account ValueTask restrictions<br>
-https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.valuetask-1?view=net-7.0<br>
-code source: Harutyan Shmavonyan
+### Parsing
+https://learn.microsoft.com/en-us/dotnet/standard/base-types/parsing-other<br>
+https://learn.microsoft.com/en-us/dotnet/api/system.iparsable-1?view=net-7.0<br>
+source code: https://www.youtube.com/watch?v=lqbYURwM0bw
 
 #!csharp
 
-// Task<int> implementation
-public async Task<int> GetCachedResultAsync()
-{
-    if (cache.TryGetValue(key, out int result))
-    {
-        return result;
-    }
+var numberAsText = "1234";
 
-    result = await CalculateResultAsync();
-    cache[key] = result;
-    return result;
+var numberAsInt = int.Parse(numberAsText);
+var numberAsDouble = double.Parse(numberAsText);
+
+Console.WriteLine(numberAsInt);
+Console.WriteLine(numberAsDouble);
+
+#!csharp
+
+// .net 8 implementation
+
+var numberAsText = "6,9".AsSpan();
+var point2d = Point2d.Parse(numberAsText);
+Console.WriteLine(point2d);
+
+public static class ParsableExtensions
+{
+    public static T Parse<T>(this string input, IFormatProvider? formatProvider = null) where T : IParsable<T>
+    {
+        return T.Parse(input, formatProvider);
+    }
 }
 
-#!csharp
-
-// ValueTask<int> implementation
-public async ValueTask<int> GetCachedResultAsync()
+public record Point2d(int X, int Y) : ISpanParsable<Point2d>
 {
-    if (cache.TryGetValue(key, out int result))
+    public static Point2d Parse(ReadOnlySpan<char> text, IFormatProvider? provider = null)
     {
-        return result;
+        Span<Range> dest = stackalloc Range[2];
+        var splitText = text.Split(',', dest);
+        var x = int.Parse(text[dest[0]], provider);
+        var y = int.Parse(text[dest[1]], provider);
+        return new Point2d(x, y);
     }
 
-    result = await CalculateResultAsync();
-    cache[key] = result;
-    return result;
+    public static bool TryParse(ReadOnlySpan<char> text, IFormatProvider? provider, out Point2d result)
+    {
+        try
+        {
+            Span<Range> dest = stackalloc Range[2];
+            var splitText = text.Split(',', dest);
+            var x = int.Parse(text[dest[0]], provider);
+            var y = int.Parse(text[dest[1]], provider);
+            result = new Point2d(x, y);
+            return true;
+        }
+        catch
+        {
+            result = new Point2d(0, 0);
+        }
+    }
 }
