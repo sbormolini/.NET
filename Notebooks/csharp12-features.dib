@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":["c#","cs"],"languageName":"C#","name":"csharp"},{"aliases":["f#","fs"],"languageName":"F#","name":"fsharp"},{"aliases":[],"languageName":"HTML","name":"html"},{"aliases":[],"languageName":"http","name":"httpRequest"},{"aliases":["js"],"languageName":"JavaScript","name":"javascript"},{"aliases":[],"languageName":"KQL","name":"kql"},{"aliases":[],"languageName":"Mermaid","name":"mermaid"},{"aliases":["powershell"],"languageName":"PowerShell","name":"pwsh"},{"aliases":[],"languageName":"SQL","name":"sql"},{"aliases":[],"name":"value"}]}}
 
 #!markdown
 
@@ -30,7 +30,41 @@ public interface IUserRepository
 
 #!csharp
 
-// Primary Constructors
+var logger = new Logger();
+var sandro = new Person("Sandro", "Bormolini");
+sandro.PrintName(logger);
+
+public class Person
+{
+    public string? FirstName { get; }
+    public string? LastName { get; }
+    public string FullName => $"{FirstName} {LastName}";
+
+    public Person(string firstName, string lastName)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
+    public void PrintName(ILogger logger)
+    {
+        logger.Log(FullName);
+    }
+}
+
+public interface ILogger
+{
+    void Log(string message);
+}
+
+public class Logger : ILogger
+{
+    public void Log(string message) => Console.WriteLine(message);
+}
+
+#!csharp
+
+// Primary Constructors - simple
 using System;
 
 Console.WriteLine("Sali zäme");
@@ -43,4 +77,30 @@ public class UserService(IUserRepository repo)
 public interface IUserRepository
 {
     void CreateUser();
+}
+
+#!csharp
+
+// Primary Constructors - person
+var logger = new Logger();
+var sandro = new Person("Sandro", "Bormolini", logger);
+sandro.PrintName();
+
+public class Person(string firstName, string lastName, ILogger logger)
+{
+    // public Person(Ilogger l) : this("Sandro", "Bormolini", l)
+    // {}
+    public string FullName => $"{firstName} {lastName}";
+
+    public void PrintName() => logger.Log(FullName);
+}
+
+public interface ILogger
+{
+    void Log(string message);
+}
+
+public class Logger : ILogger
+{
+    public void Log(string message) => Console.WriteLine(message);
 }
