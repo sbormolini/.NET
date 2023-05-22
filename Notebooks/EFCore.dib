@@ -88,3 +88,17 @@ await _context
     .Customers
     .Where(x => x.DeletedAt =< DateTime.UtcNow.AddDays(-90))
     .ExecuteDeleteAsync();
+
+#!markdown
+
+#### Simple Bulk Delete with EF Core 7
+https://www.learnentityframeworkcore.com/bulk-extensions#:~:text=EF%20Core%20Bulk%20Delete%20Extensions,BulkDelete(customer)%3B
+Source code: milan jovanovic
+
+#!csharp
+
+// merthod syntax
+dbContext.Posts.Where(p => p.Impressions < 1000).ExecuteDelete();
+
+// sql syntax
+DELETE FROM Posts p WHERE p.Impressions < 1000;
