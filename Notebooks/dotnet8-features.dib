@@ -1,0 +1,31 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"languageName":"csharp","name":"csharp"}]}}
+
+#!markdown
+
+## What's new in .NET 8
+.NET 8 is the successor to .NET 7. It will be supported for three years as a long-term support (LTS) release. You can download .NET 8 here.<br>
+https://dotnet.microsoft.com/en-us/download/dotnet<br>
+https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8<br>
+
+#!markdown
+
+#### Data annotations
+System.ComponentModel.DataAnnotations Extensions<br>
+source: https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-2/
+
+#!csharp
+
+[Required(DisallowAllDefaultValues = true)]
+public Guid MyGuidValue { get; set; }
+
+[Length(10, 20)] // Require at least 10 elements and at most 20 elements.
+public ICollection<int> Values { get; set; }
+
+
+[AllowedValues("apple", "banana", "mango")]
+public string Fruit { get; set; }
+
+[DeniedValues("pineapple", "anchovy", "broccoli")]
+public string PizzaTopping { get; set; }
