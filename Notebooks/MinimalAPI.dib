@@ -1,0 +1,33 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!markdown
+
+#### Mapster
+https://github.com/MapsterMapper/Mapster
+source code: Muhammad Waseem
+
+#!csharp
+
+public class StudentDTO
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Email { get; set; }
+}
+
+public class StudentEntity
+{
+    public int StudentId { get; set; }
+    public string? StudentName { get; set; }
+    public string? StudentEmail { get; set; }
+}
+
+// using
+using (SomeDbContext context)
+{
+    var students = context.Students
+        .ProjectToType<StudentDTO>()
+        .ToList();
+}
