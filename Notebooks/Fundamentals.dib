@@ -1868,3 +1868,41 @@ void DisplaySet(HashSet<int> collection)
 * numbers UnionWith oddNumbers...
 * numbers contains 10 elements: { 0 2 4 6 8 1 3 5 7 9 }
 */
+
+#!markdown
+
+#### Global Error Handling in .NET
+In .NET 5+, the recommended approach to implement global error handling is using middleware.
+code source: Stefan Dokic
+additional sources: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-7.0 
+
+#!csharp
+
+public class ExceptionMiddleware 
+{
+    private readonly RequestDelegate _next;
+    public ExceptionMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await _next(context);
+        }
+        catch (Exception error)
+        {
+            var response = context.Response;
+            response.ContentType = "application/json";
+
+            Console.WriteLine($"Error: {error.Message}");
+            Console.WriteLine($"Error Details: {context.Request.Path}");
+
+            // handle Exception
+
+            // return statuscode, message, details
+            await response.WriteAsync("Error"); 
+        }
+    }
+}
