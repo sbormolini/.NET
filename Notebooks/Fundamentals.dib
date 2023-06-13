@@ -1906,3 +1906,35 @@ public class ExceptionMiddleware
         }
     }
 }
+
+#!markdown
+
+#### Null != Empty
+Return null:
+
+• Possible NullReferenceException 
+• We always need to check for null
+• Slow Performance
+
+Return an empty collection:
+
+• Don't need to check for null
+• Good Performance
+
+You should apply this to every collection type.
+
+source: Stefan Dokic
+
+#!csharp
+
+// dont return null
+public IEnumerable<string> GetNames()
+{
+    return null;
+}
+
+// return emtpy collection
+public IEnumerable<string> GetNames()
+{
+    return Enumerable.Empty<string>();
+}
