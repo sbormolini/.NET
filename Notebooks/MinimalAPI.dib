@@ -4,30 +4,56 @@
 
 #!markdown
 
-#### Mapster
-https://github.com/MapsterMapper/Mapster
-source code: Muhammad Waseem
+#### Minimal APIs 
+Minimal APIs are a simplified approach for building fast HTTP APIs with ASP.NET Core. You can build fully functioning REST endpoints with minimal code and configuration. Skip traditional scaffolding and avoid unnecessary controllers by fluently declaring API routes and actions. For example, the following code creates an API at the root of the web app that returns the text, "Hello World!". <br>
+Source: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-7.0
 
 #!csharp
 
-public class StudentDTO
+var builder = WebApplication.CreateBuiler(args);
+
+// register service for use in endpoints
+// scoped : created for each incoming reqzest
+builder.Services.AddScoped<MyService>();
+var app = builder.Build();
+
+// my service injected using ASP.NET Core DI
+app.MapGet("/",(MyService myService) => myService.Hi);
+
+app.Run();
+
+public class MyService 
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Email { get; set; }
+    public string Hi => "Grüezi!";
 }
 
-public class StudentEntity
-{
-    public int StudentId { get; set; }
-    public string? StudentName { get; set; }
-    public string? StudentEmail { get; set; }
-}
+#!markdown
 
-// using
-using (SomeDbContext context)
+#### Middleware in Minimal API apps
+
+Middleware allows you to introduce additional logic before or after executing an HTTP request.
+
+There are three approaches to creating middleware:
+- With Request Delegates
+- By Convention
+- Factory-Based
+<br><br>
+Source: Milan Jovanovic
+<br>
+Addtional: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/middleware?view=aspnetcore-7.0
+
+#!csharp
+
+var builder = WebApplication.CreateBuiler(args);
+
+var app = builder.Build();
+
+// my service injected using ASP.NET Core DI
+app.Use(async (context, next) => 
 {
-    var students = context.Students
-        .ProjectToType<StudentDTO>()
-        .ToList();
-}
+    // add code before request
+
+    await next(context);
+
+    // add code after request
+});
