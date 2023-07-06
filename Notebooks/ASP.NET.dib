@@ -1,0 +1,46 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!markdown
+
+#### using named httpclients in asp.net core
+source: https://www.youtube.com/shorts/_kx6exxgQqQ
+source: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-7.0
+
+#!csharp
+
+using Microsoft.Net.Http.Headers;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// add services to the container.
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "WebApplication1", Version = "v1" });
+});
+builder.Services.AddHttpClient("GitHub", httpClient => 
+{
+    httpClient.BaseAddress = new Uri("https://api.github.com/");
+    httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/vnd.github.v3+json");
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
