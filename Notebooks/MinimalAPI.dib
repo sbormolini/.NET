@@ -57,3 +57,37 @@ app.Use(async (context, next) =>
 
     // add code after request
 });
+
+#!markdown
+
+#### Implement API Idempotency
+
+Idempotency is a concept that is important to understand when making API requests. Idempotent requests are requests that can be made multiple times but they get the same response. This means that they do not affect the server in a way that will change the subsequent response.
+
+source: https://www.youtube.com/shorts/eXBX9ubqqJg
+
+#!csharp
+
+app.MapPost("products", async(
+    CreateProductRequest request,
+    [FromHeader(Name = "X-Idempotency-Key")]
+    string requestId,
+    ISender senser) => 
+{
+    if (!Guid.TryParse(requestId, out Guid parsedRequestId))
+    {
+        return Results.BadRequest();
+    }
+
+    var command = new CreateProductCommand(
+        parsedRequestId,
+        request.Name,
+        request.Sku,
+        request.Price,
+        request.Amount
+    );
+
+    await sender.Send(command);
+    
+    return Results.Ok();
+});
