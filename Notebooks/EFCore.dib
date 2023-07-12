@@ -102,3 +102,24 @@ dbContext.Posts.Where(p => p.Impressions < 1000).ExecuteDelete();
 
 // sql syntax
 DELETE FROM Posts p WHERE p.Impressions < 1000;
+
+#!markdown
+
+#### Enable EF Core Logging
+source: @MilanJovanovicTech
+https://www.youtube.com/shorts/xy_yBZ3nwXg
+
+#!csharp
+
+public class CatalogDbContext : DbContext
+{
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.LogTo(
+        action: Console.WriteLine,
+        minimumLevel: LogLevel.Information);
+    }
+
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+}
