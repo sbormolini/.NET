@@ -91,3 +91,26 @@ app.MapPost("products", async(
     
     return Results.Ok();
 });
+
+#!markdown
+
+#### RateLimiterOptionsExtensions.AddTokenBucketLimiter
+RateLimiterOptionsExtensions.AddTokenBucketLimiter is a method in the Microsoft.AspNetCore.RateLimiting namespace that registers a new TokenBucketRateLimiter with the given TokenBucketRateLimiterOptions to the application. The limiter can be added to an endpoint via RequireRateLimiting<TBuilder> (TBuilder, String), or via the EnableRateLimitingAttribute12.<br>
+<br>
+The TokenBucketRateLimiter is a rate limiter that uses a token bucket algorithm to limit the number of requests that can be made over a period of time. The algorithm works by maintaining a bucket of tokens that are refilled at a fixed rate. Each request consumes one token from the bucket. If there are no tokens left in the bucket, the request is rejected.<br>
+<br>
+Sources:
+https://www.youtube.com/shorts/iE6uOxTSz4c @MilanJovanovicTech
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.ratelimiting.ratelimiteroptionsextensions.addtokenbucketlimiter?view=aspnetcore-7.0
+
+#!csharp
+
+rateLimiterOptions.AddTokenBucketLimiter(
+    "token",
+    options => {
+        options.TokenLimit = 100;
+        options.ReplenishPeriod = TimeSpan.FromMinutes(1);
+        options.TokenPerPeriod = 10;
+        options.QueueLimit = 5;
+        options.QueueProcessingOrder.OldestFirst;
+    });
