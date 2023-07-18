@@ -146,3 +146,29 @@ app.MapGet("/products/{id}",
 });
 
 app.Run();
+
+#!markdown
+
+#### Response Compression
+Network bandwidth is a limited resource. Reducing the size of the response usually increases the responsiveness of an app, often dramatically. One way to reduce payload sizes is to compress an app's responses.
+<br>
+Sources:<br>
+https://www.youtube.com/shorts/3I4U3GvIZB8 @MilanJovanovicTech<br>
+https://learn.microsoft.com/en-us/aspnet/core/performance/response-compression?view=aspnetcore-7.0
+
+#!csharp
+
+var builder = WebApplication.CreateBuiler(args);
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
+var app = builder.Build();
+
+app.UseResponseCompression();
+
+app.MapGet("/", () => "Hello World!");
+
+app.Run();
