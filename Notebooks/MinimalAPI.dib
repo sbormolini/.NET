@@ -160,6 +160,7 @@ https://learn.microsoft.com/en-us/aspnet/core/performance/response-compression?v
 
 var builder = WebApplication.CreateBuiler(args);
 
+// supports brotli & gzip out of the box
 builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
 {
     options.Level = CompressionLevel.Fastest;
