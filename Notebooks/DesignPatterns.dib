@@ -1,0 +1,36 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!markdown
+
+#### CQRS with Mediator
+CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store.<br>
+Mediator is a behavioral design pattern that reduces coupling between components of a program by making them communicate indirectly, through a special mediator object.
+<br>
+Sources:<br>
+https://www.youtube.com/shorts/yuB9Ng2-2m0 @MilanJovanovicTech<br>
+
+#!csharp
+
+public interface ICommand : IRequest<Result>, IBaseCommand
+{
+}
+
+public interface ICommand<TResponse> : IRequest<Result<TResponse>>, IBaseCommand
+{
+}
+
+public interface IBaseCommand
+{
+}
+
+public class ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
+    where TCommand : ICommand
+{
+}
+
+public class ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
+    where TCommand : ICommand<TResponse>
+{
+}
