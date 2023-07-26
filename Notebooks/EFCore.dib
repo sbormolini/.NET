@@ -159,3 +159,26 @@ internal class CustomerConfiguration :  IEntityTypeConfiguraiotn<Customer>
         builder.HasIndex(c => c.Email).IsUnique();    
     }
 }
+
+#!markdown
+
+#### Optimistic locking with EF concurrency token
+Sources:<br>
+https://www.youtube.com/shorts/d0jkXt9pAPg @MilanJovanovicTech<br>
+https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=data-annotations
+
+#!csharp
+
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.HasKey(p => p.Id);
+
+        builder.HasMany(p => p.Categories);
+
+        builder.Navigation(p => p.Categories).AutoInclude();
+
+        builder.Property(p => p.Price).IsConcurrencyToken();
+    }
+}
