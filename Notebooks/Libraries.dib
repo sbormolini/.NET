@@ -89,3 +89,22 @@ public interface IChatClient
 {
     Task ReceiveNotification(string message);
 }
+
+#!markdown
+
+#### SignalR - IHubContext
+The SignalR hub is the core abstraction for sending messages to clients connected to the SignalR server. It's also possible to send messages from other places in your app using the IHubContext service. 
+<br>
+https://learn.microsoft.com/en-us/aspnet/core/signalr/hubcontext?view=aspnetcore-7.0
+<br>
+source: https://www.youtube.com/shorts/2i-HxCgIEuI @MilanJovanovicTech
+
+#!csharp
+
+app.MapPost(
+    "broadcast", 
+    async(string message, IHubContext<ChatHub, IChatClient> context) => 
+{
+    await context.Clients.All.ReceiveNotification(message);
+    return Results.NoConent();
+});
