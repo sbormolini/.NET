@@ -89,3 +89,38 @@ public class Email
 
 var email = new Email("hans.muster@test.local");
 string emailValue = email;
+
+#!markdown
+
+#### true and false operators
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/true-false-operators<br>
+source: https://www.youtube.com/shorts/uuSOlTrFLrg @MilanJovanovicTech
+
+#!csharp
+
+LaunchStatus status = GetLaunchStatus();
+
+if (status)
+{
+    Console.WriteLine("Go for launch!");
+}
+else
+{
+    Console.WriteLine("Abort launch!");
+}
+
+LaunchStatus GetLaunchStatus() => LaunchStatus.Red;
+
+public record LaunchStatus
+{
+    public static readonly LaunchStatus Green = new(0);
+    public static readonly LaunchStatus Yellow = new(1);
+    public static readonly LaunchStatus Red = new(2);
+
+    private LaunchStatus(int status) => Status = status;
+
+    public int Status { get; }
+
+    public static bool operator true(LaunchStatus x) => x == Green || x == Yellow;
+    public static bool operator false(LaunchStatus x) => x == Red;
+}
