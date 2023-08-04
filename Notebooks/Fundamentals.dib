@@ -1938,3 +1938,29 @@ public IEnumerable<string> GetNames()
 {
     return Enumerable.Empty<string>();
 }
+
+#!markdown
+
+#### dictonary keys are case sensitive
+https://learn.microsoft.com/en-us/dotnet/api/system.collections.specialized.stringdictionary.containskey?view=net-7.0
+https://learn.microsoft.com/en-us/dotnet/api/system.stringcomparer.ordinalignorecase?view=net-7.0
+source: https://www.youtube.com/shorts/Dsi0I080pKA @MilanJovanovicTech
+
+#!csharp
+
+var dictionary = new Dictonary<string, object>(StringComparer.OrdinalIgnoreCase)
+{
+    { "key1", 1 },
+    { "key2", 2 },
+    { "key3", 3 } 
+};
+
+if (dictionary.ContainsKey("key1"))
+{
+    Console.WriteLine("Value found");
+}
+
+if (dictionary.ContainsKey("KEY1"))
+{
+    Console.WriteLine("Value also found");
+}
