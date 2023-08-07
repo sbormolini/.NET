@@ -1964,3 +1964,34 @@ if (dictionary.ContainsKey("KEY1"))
 {
     Console.WriteLine("Value also found");
 }
+
+#!markdown
+
+##### ArraySegment<T> Struct
+https://learn.microsoft.com/en-us/dotnet/api/system.arraysegment-1?view=net-7.0
+source: https://www.youtube.com/watch?v=MGCNS6s6e5o
+
+#!csharp
+
+var names = new[]
+{
+    "Emily Thompson",
+    "Alexander Johnson",
+    "Jessica Brown",
+    "Anthony Davis",
+    "Katherine Wilson",
+    "Michael Moore",
+    "Vanessa Jones",
+    "Robert Smith",
+    "Isabel Garcia",
+    "William Martinez"
+};
+
+//var sliceOfNames = names.Skip(2).Take(3);
+//var sliceOfNames = names.AsSpan().Slice(0, 2);
+var segmentOfNames = new ArraySegment<string>(names, 0, 3);
+
+foreach (var name in sliceOfNames)
+{
+    Console.WriteLine($"Name was: {name}");
+}
