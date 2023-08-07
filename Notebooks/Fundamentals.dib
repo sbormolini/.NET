@@ -1969,7 +1969,7 @@ if (dictionary.ContainsKey("KEY1"))
 
 ##### ArraySegment<T> Struct
 https://learn.microsoft.com/en-us/dotnet/api/system.arraysegment-1?view=net-7.0
-source: https://www.youtube.com/watch?v=MGCNS6s6e5o
+source: https://www.youtube.com/watch?v=MGCNS6s6e5o @nickchapsas
 
 #!csharp
 
