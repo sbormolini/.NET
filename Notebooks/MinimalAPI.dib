@@ -173,3 +173,17 @@ app.UseResponseCompression();
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
+
+#!markdown
+
+#### named httpclient
+https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory
+
+#!csharp
+
+app.MapGet("users/v3/{username}", async (string username, IHttpClientFactory factory) =>
+{
+    var client = factory.CreateClient("github");
+    var content = await client.GetFromJsonAsync<GitHubsUser>($"users/{username}");
+    return Results.Ok(content);
+});
