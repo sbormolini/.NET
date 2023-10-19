@@ -1995,3 +1995,31 @@ foreach (var name in sliceOfNames)
 {
     Console.WriteLine($"Name was: {name}");
 }
+
+#!markdown
+
+Pattern matching
+https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching
+code source: https://www.youtube.com/shorts/Av-fv9EOrnw @MilanJovanovicTech
+
+#!csharp
+
+var engineer = new SoftwareEngineer();
+
+if (!engineer.KnowsCSharp && 
+    engineer.KnowsJava && 
+    engineer.ProgrammingLanguages.Count > 3)
+{
+    Console.WriteLine("Engineer does not know C# ");
+}
+
+// pattern matching
+if (engineer is 
+    {
+        KnowsCSharp: false,  
+        KnowsJava: true,
+        ProgrammingLanguages.Count: > 3
+    })
+{
+    Console.WriteLine("Engineer does not know C# ");
+}
