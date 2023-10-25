@@ -2023,3 +2023,32 @@ if (engineer is
 {
     Console.WriteLine("Engineer does not know C# ");
 }
+
+#!markdown
+
+Validate Applicaiton Settings with Data Annotations
+https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
+https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/models-data/validation-with-the-data-annotation-validators-cs
+code source: https://www.youtube.com/shorts/KUhAclofBoY @MilanJovanovicTech
+
+#!csharp
+
+public sealed class GitHubSettings
+{
+    public const string ConfigurationSectionName = "GitHub";
+
+    [Required, Url]
+    public string BaseAddress { get; init; }
+
+    [Required]
+    public string AccessToken { get; init; }
+
+    [Required]
+    public string UserAgent { get; init; }
+}
+
+// apply
+builder.Services.AddOptions<GitHubSettings>()
+    .BindConfiguration(GitHubSettings.ConfigurationSectionName)
+    .ValidateDataAnnotations();
+    .ValidateOnStart();
