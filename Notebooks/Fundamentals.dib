@@ -2074,7 +2074,7 @@ static bool TryCreate(
 // can't use out on async methods
 static async Task<bool> TryCreateAsync(
     Stream json, 
-    out SoftwareEngineer? engineer) // error : convert into tuple or retiurn object
+    out SoftwareEngineer? engineer) // error : remove out param and convert Task<bool> into tuple or return object
 {
     engineer = await JsonSerializer
         .DeserializeAsync<SoftwareEngineer>(json);
