@@ -2052,3 +2052,32 @@ builder.Services.AddOptions<GitHubSettings>()
     .BindConfiguration(GitHubSettings.ConfigurationSectionName)
     .ValidateDataAnnotations();
     .ValidateOnStart();
+
+#!markdown
+
+Can't use the C# out paramter in this case
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/method-parameters#out-parameter-modifier
+code source: https://www.youtube.com/shorts/OAPYd6SKbW4 @MilanJovanovicTech
+
+#!csharp
+
+static bool TryCreate(
+    Stream json, 
+    out SoftwareEngineer? engineer)
+{
+    engineer = JsonSerializer
+        .Deserialize<SoftwareEngineer>(json);
+
+    return engineer is not null;
+}
+
+// can't use out on async methods
+static async Task<bool> TryCreateAsync(
+    Stream json, 
+    out SoftwareEngineer? engineer) // error : convert into tuple or retiurn object
+{
+    engineer = await JsonSerializer
+        .DeserializeAsync<SoftwareEngineer>(json);
+
+    return engineer is not null;
+}
