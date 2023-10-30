@@ -2024,6 +2024,24 @@ if (engineer is
     Console.WriteLine("Engineer does not know C# ");
 }
 
+#!csharp
+
+var engineer = new SoftwareEngineer();
+
+if (engineer.KnowsCSharp || 
+    engineer.KnowsJava)
+{
+    Console.WriteLine("Must be coder");
+}
+
+// pattern matching more verbose it this case 
+// source: https://www.youtube.com/shorts/fQ6PlbvYGH4
+if (engineer is { KnowsCSharp: true } or
+                { KnowsJava: true })
+{
+    Console.WriteLine("Must be coder!");
+}
+
 #!markdown
 
 Validate Applicaiton Settings with Data Annotations
