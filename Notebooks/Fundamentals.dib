@@ -2099,3 +2099,32 @@ static async Task<bool> TryCreateAsync(
 
     return engineer is not null;
 }
+
+#!markdown
+
+#### Enum parsing
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/enums
+https://learn.microsoft.com/en-us/dotnet/api/system.enum.tryparse?view=net-7.0
+code source: https://www.youtube.com/watch?v=VENbpXhGUZM
+
+#!csharp
+
+public enum DaysOfWeek
+{
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+
+var didParse1 = Enum.TryParse<DaysOfWeek>("monday", out var tryParse1);
+Console.WriteLine($"{tryParse1}, {didParse1}");
+
+var didParse2 = Enum.TryParse<DaysOfWeek>("tuesday", ignoreCase: true, out var tryParse2);
+Console.WriteLine($"{tryParse2}, {didParse2}");
+
+var didParse3 = Enum.TryParse<DaysOfWeek>("Friday", ignoreCase: false, out var tryParse3);
+Console.WriteLine($"{tryParse3}, {didParse3}");
