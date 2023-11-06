@@ -187,3 +187,61 @@ app.MapGet("users/v3/{username}", async (string username, IHttpClientFactory fac
     var content = await client.GetFromJsonAsync<GitHubsUser>($"users/{username}");
     return Results.Ok(content);
 });
+
+#!markdown
+
+Register Minimal API using extension
+code source: https://www.youtube.com/shorts/jhwkc6By8Yg
+
+#!csharp
+
+// default -> not very maintainable
+var builder = WebApplication.CreateBuiler(args);
+
+var app = builder.Build();
+
+app.MapGet("/products/{id}", 
+    Resuls<Ok<Product>, NotFound>(
+    int id, 
+    CatalogContext context) =>
+{
+    return context.Products.Find(id) 
+    is {} product ?
+        TypedResult.Ok(product) : 
+        TypedResult.NotFound();
+});
+
+app.Run();
+
+#!csharp
+
+// class
+using Microsoft.AspNetCore.Http.HttpRequest;
+
+namespace Learn.MinimalAPI;
+
+public static class ProductEndpoints
+{
+    public static void MapProductEndpoints(this IEndpointRouteBuilder app)
+    {
+        app.MapGet("/products/{id}", 
+        Resuls<Ok<Product>, NotFound>(
+        int id, 
+        CatalogContext context) =>
+        {
+            return context.Products.Find(id) 
+            is {} product ?
+                TypedResult.Ok(product) : 
+                TypedResult.NotFound();
+        });
+    }
+}
+
+// Program.cs
+var builder = WebApplication.CreateBuiler(args);
+
+var app = builder.Build();
+
+app.MapProductEndpoints();
+
+app.Run();
