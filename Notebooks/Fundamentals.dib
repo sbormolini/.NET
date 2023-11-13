@@ -2128,3 +2128,36 @@ Console.WriteLine($"{tryParse2}, {didParse2}");
 
 var didParse3 = Enum.TryParse<DaysOfWeek>("Friday", ignoreCase: false, out var tryParse3);
 Console.WriteLine($"{tryParse3}, {didParse3}");
+
+#!markdown
+
+#### Guard Clauses
+https://www.c-sharpcorner.com/article/guards-in-net/#:~:text=In%20simple%20language%20we%20can%20say%20that%20the,the%20GetStudent%20method%20against%20any%20null%20_student%20arguments.
+Source code: https://www.youtube.com/shorts/QsFBpReY0hI
+
+#!csharp
+
+public static class Ensure
+{
+    public static void NotNullOrEmpty(
+        [NotNull] string? value, 
+        [CallerArgumentExpression("value")] string? paramName = null)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new ArgumentException("Value cannot be null or empty", paramName);
+        }
+    }
+}
+
+// usage
+public sealed record Name
+{
+    public Name(string? value)
+    {
+        Ensure.NotNullOrEmpty(value);
+        Value = value;
+    }
+    
+    public string Value { get; }
+}
