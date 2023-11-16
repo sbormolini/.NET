@@ -104,3 +104,34 @@ public class Logger : ILogger
 {
     public void Log(string message) => Console.WriteLine(message);
 }
+
+#!markdown
+
+#### Primary Constructor Dependency Injection
+https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/primary-constructors
+source code: https://www.youtube.com/shorts/SL9PRpT5-Yk
+
+#!csharp
+
+internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> _logger) : IExceptionHandler
+{
+    public async ValueTask<bool> TryHandleAsync(
+        Exception exception, 
+        HttpContext httpContext, 
+        CancellationToken cancellationToken)
+    {
+        _logger.LogError(exception, "An unhandled exception has occurred while executing the request");
+
+        var problemDetails = new ProblemDetails
+        {
+            Title = "An error occurred while processing your request.",
+            Status = StatusCodes.Status500InternalServerError
+        };
+
+        httpContext.Response.StatusCode = problemDetails.Status.Value;
+
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken: cancellationToken);
+
+        return true;
+    }
+}
