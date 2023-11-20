@@ -2161,3 +2161,29 @@ public sealed record Name
     
     public string Value { get; }
 }
+
+#!markdown
+
+#### Activator Class
+Contains methods to create types of objects locally or remotely, or obtain references to existing remote objects.
+source: https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance?view=net-8.0
+Source code: https://www.youtube.com/shorts/3Ec-TS96xCE
+
+#!csharp
+
+internal class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+
+    public override string ToString() => $"Id: {Id}, Name: {Name}, Category: {Category}, Price: {Price}, Quantity: {Quantity}";
+}
+
+var product = new Product();
+
+var productType = typeof(Product);
+
+var productViaReflection = Activator.CreateInstance(productType);
