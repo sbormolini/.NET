@@ -1,0 +1,59 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!csharp
+
+#r "nuget: Azure.AI.OpenAI, 1.0.0-beta.6"
+
+#!csharp
+
+using System;
+using Azure.AI.OpenAI;
+
+#!csharp
+
+var AOAI_ENDPOINT = Environment.GetEnvironmentVariable("AOAI_ENDPOINT");
+var AOAI_KEY = Environment.GetEnvironmentVariable("AOAI_KEY");
+var AOAI_DEPLOYMENTID = Environment.GetEnvironmentVariable("AOAI_DEPLOYMENTID");
+
+var endpoint = new Uri(AOAI_ENDPOINT);
+var credentials = new Azure.AzureKeyCredential(AOAI_KEY);
+var openAIClient = new OpenAIClient(endpoint, credentials);
+
+#!markdown
+
+# Advanced tweet classifier
+This is an advanced prompt for detecting sentiment. It allows you to provide it with a list of status updates and then provide a sentiment for each one.
+source: https://github.com/Azure-Samples/openai-dotnet-samples/blob/main/advanced-tweet-classifier.ipynb
+
+#!csharp
+
+var systemPrompt = "You are a virtual agent that helps users classify the sentiment of tweets"; 
+
+var userPrompt = 
+    """
+    Classify the sentiment in these tweets:
+
+    1. "I can't stand homework"
+    2. "This sucks. I'm bored 😠"
+    3. "I can't wait for Halloween!!!"
+    4. "My cat is adorable ❤️❤️"
+    5. "I hate chocolate"
+
+    Tweet sentiment ratings:
+    """;
+
+var completionOptions = new ChatCompletionsOptions
+{
+    MaxTokens=60,
+    Temperature=0f,
+    FrequencyPenalty=0.0f,
+    PresencePenalty=0.0f,
+    NucleusSamplingFactor=1 // Top P
+};
+
+completionOptions.Messages.Add(new ChatMessage(ChatRole.System,systemPrompt));
+completionOptions.Messages.Add(new ChatMessage(ChatRole.User,userPrompt));
+ChatCompletions response = await openAIClient.GetChatCompletionsAsync(AOAI_DEPLOYMENTID,completionOptions);
+response.Choices.First().Message.Content
