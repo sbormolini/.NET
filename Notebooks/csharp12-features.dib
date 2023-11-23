@@ -135,3 +135,13 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> _lo
         return true;
     }
 }
+
+#!markdown
+
+#### Default lambda parameters
+https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-12#default-lambda-parameters
+
+#!csharp
+
+var increment = (int value, int inc = 1) => value + inc;
+Console.WriteLine(increment(10, 2));
