@@ -2187,3 +2187,45 @@ var product = new Product();
 var productType = typeof(Product);
 
 var productViaReflection = Activator.CreateInstance(productType);
+
+#!markdown
+
+#### Linq get max values object
+https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.aggregate?view=net-8.0
+https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.maxby?view=net-8.0
+source code: https://www.youtube.com/shorts/f7aKQkdsHf8
+
+#!csharp
+
+var food = new[]
+{
+    new Product { Id = 1, Name = "Apple", Category = "Fruit", Price = 1.20M, Quantity = 10 },
+    new Product { Id = 2, Name = "Banana", Category = "Fruit", Price = 1.40M, Quantity = 20 },
+    new Product { Id = 3, Name = "Orange", Category = "Fruit", Price = 1.60M, Quantity = 30 },
+    new Product { Id = 4, Name = "Pineapple", Category = "Fruit", Price = 1.80M, Quantity = 40 },
+    new Product { Id = 5, Name = "Strawberry", Category = "Fruit", Price = 2.00M, Quantity = 50 },
+};
+
+// sort
+var priciest1 = food
+    .OrderByDescending(x => x.Price)
+    .First();
+
+// aggregate
+var priciest2 = food
+    .Aggregate((pr, next) => pr.Price > next.Price ? pr : next);
+
+// maxby
+var priciest3 = food
+    .MaxBy(x => x.Price);
+
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+
+    public override string ToString() => $"Id: {Id}, Name: {Name}, Category: {Category}, Price: {Price}, Quantity: {Quantity}";
+}
