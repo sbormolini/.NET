@@ -2229,3 +2229,55 @@ public class Product
 
     public override string ToString() => $"Id: {Id}, Name: {Name}, Category: {Category}, Price: {Price}, Quantity: {Quantity}";
 }
+
+#!markdown
+
+### Map Lists
+https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.convertall?view=net-8.0
+source code: https://www.youtube.com/shorts/LBrabwNYY4Q
+
+#!csharp
+
+var engineers = GetEngineers();
+
+// method 1
+var enginnerV1 = new List<SoftwareEngineerDTO>();
+foreach (var engineer in engineers)
+{
+    enginnerV1.Add(new SoftwareEngineerDTO(engineer));
+}
+
+// method 2
+var enginnerV2 = engineers
+    .Select(engineer => new SoftwareEngineerDTO(engineer))
+    .ToList();
+
+// method 3
+var enginnerV3 = engineers
+    .ConvertAll(engineer => new SoftwareEngineerDTO(engineer));
+
+class SoftwareEngineer
+{
+    public SoftwareEngineer() { }
+
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public DateOnly DateOfBirth { get; set; }
+    public string ProgrammingLanguage { get; set; }
+}
+
+class SoftwareEngineerDTO
+{
+    public SoftwareEngineerDTO(SoftwareEngineer engineer)
+    {
+        Name = engineer.Name;
+        Email = engineer.Email;
+        ProgrammingLanguage = engineer.ProgrammingLanguage;
+    }
+
+    public SoftwareEngineerDTO() { }
+
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string ProgrammingLanguage { get; set; }
+}
