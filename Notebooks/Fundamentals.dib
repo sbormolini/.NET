@@ -2281,3 +2281,18 @@ class SoftwareEngineerDTO
     public string Email { get; set; }
     public string ProgrammingLanguage { get; set; }
 }
+
+#!markdown
+
+#### Record with
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record
+Source code: https://www.youtube.com/shorts/tRytBhgbD6I
+
+#!csharp
+
+var exam = new Exam(Grades.A);
+
+var newExam = exam with { Grade = Grades.B };
+
+record Exam(Grades Grade);
+enum Grades { A, B, C, D, E, F };
