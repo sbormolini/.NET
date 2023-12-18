@@ -2296,3 +2296,27 @@ var newExam = exam with { Grade = Grades.B };
 
 record Exam(Grades Grade);
 enum Grades { A, B, C, D, E, F };
+
+#!markdown
+
+#### Expression Body Constructors in C# 
+https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members
+code source: https://www.youtube.com/shorts/OqTEuQ0PeGU
+
+#!csharp
+
+public class User
+{
+    // public User(int id, string name)
+    // {
+    //     Id = id;
+    //     Name = name;
+    // }
+
+    // Expression Body Constructors, does not scale above two parameters
+    public User(int id, string name) => 
+        (Id, Name) = (id, name);
+
+    public int Id { get; }
+    public string Name { get; }
+}
