@@ -2320,3 +2320,41 @@ public class User
     public int Id { get; }
     public string Name { get; }
 }
+
+#!markdown
+
+#### Middleware Pattern For HttpClient with Delegating Handlers
+source code: https://www.youtube.com/shorts/M7fGrdssf84
+
+#!csharp
+
+builder.Services
+    .AddTransient<RetryHandler>()
+    .AddTransient<LoggingHandler>()
+    .AddTransient<GitHubAuthenticationHandler>();
+
+builder.Services.AddHttpClient<GitHubService>(httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://api.github.com/");
+}).AddHttpMessageHandler<RetryHandler>()
+  .AddHttpMessageHandler<LoggingHandler>()
+  .AddHttpMessageHandler<GitHubAuthenticationHandler>();
+
+
+public class GitHubAuthenticationHandler : DelegateHandler
+{
+    private readonly GitHubSettings _settings;
+    public GitHubAuthenticationHandler(IOptions<GitHubSettings> settings)
+    {
+        _settings = settings.Value;
+    }
+
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, 
+        CancellationToken cancellationToken)
+    {
+        request.Headers.Add("Authorization", $"Bearer {_settings.AccessToken}"); // use case
+        request.Headers.Add("User-Agent", _settings.UserAgent);
+        return await base.SendAsync(request, cancellationToken);
+    }
+}
