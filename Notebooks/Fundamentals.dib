@@ -2358,3 +2358,61 @@ public class GitHubAuthenticationHandler : DelegateHandler
         return await base.SendAsync(request, cancellationToken);
     }
 }
+
+#!markdown
+
+#### API gateway
+source code: https://www.youtube.com/shorts/6LFQ7Ztmw28
+source: https://microsoft.github.io/reverse-proxy/
+
+Solution
+-- gateway
+---- Gateway.Api
+-- services
+---- Products.Api
+---- Sales.Api
+---- Users.Api
+docker-compose
+
+#!csharp
+
+{
+ "Logging": {
+   "LogLevel": {
+     "Default": "Information",
+     "Microsoft": "Warning",
+     "Microsoft.Hosting.Lifetime": "Information"
+   }
+ },
+ "AllowedHosts": "*",
+ "ReverseProxy": {
+   "Routes": {
+     "route1" : {
+       "ClusterId": "cluster1",
+       "Match": {
+         "Path": "{**catch-all}"
+       }
+     }
+   },
+   "Clusters": {
+     "cluster1": {
+       "Destinations": {
+         "destination1": {
+           "Address": "https://example.com/"
+         }
+       }
+     }
+   }
+ }
+}
+
+#!csharp
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+    
+var app = builder.Build();
+app.MapReverseProxy();
+app.Run();
