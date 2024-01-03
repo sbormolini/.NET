@@ -245,3 +245,27 @@ var app = builder.Build();
 app.MapProductEndpoints();
 
 app.Run();
+
+#!markdown
+
+#### Distributed caching in ASP.NET Core
+A distributed cache is a cache shared by multiple app servers, typically maintained as an external service to the app servers that access it. A distributed cache can improve the performance and scalability of an ASP.NET Core app, especially when the app is hosted by a cloud service or a server farm.
+https://learn.microsoft.com/en-us/aspnet/core/performance/caching/distributed?view=aspnetcore-8.0
+code source: https://www.youtube.com/shorts/faaEnBFTzA8
+
+#!csharp
+
+app.MapGet("products/{id}", async (int id, ApplicaitonDbContext context, IDistributionCache cache, CancellationToken ct) => 
+{
+    var product = await cache.GetAsync($"product-{id}", async token => 
+    {
+        var product = await context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, ct);
+        return product is not null ? product : null;
+    },
+    CacheOptions.DefaultExpiration, 
+    ct);
+
+    return product is not null ? 
+        Results.Ok(product) : 
+        Results.NotFound();
+})
