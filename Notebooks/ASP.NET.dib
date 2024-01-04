@@ -44,3 +44,32 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#!markdown
+
+#### Health checks in ASP.NET Core
+ASP.NET Core offers Health Checks Middleware and libraries for reporting the health of app infrastructure components.
+https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-8.0
+code source: https://www.youtube.com/shorts/nVruJyL19A0
+
+#!csharp
+
+public class SqlHealthCheck(DbConnectionFactory dbConnectionFactory) : IHealthCheck
+{
+    public async Task<HealthCheckResult> CheckHealthAsync(
+        HealthCheckContext context, 
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            IDbConnection connection = dbConnectionFactory.OpenDbConnection();
+            await connection.ExecuteScalarAsync("SELECT 1");
+
+            return HealthCheckResult.Healthy();
+        }
+        catch (Exception ex)
+        {
+            return HealthCheckResult.Unhealthy(exception: ex);
+        }
+    }
+}
