@@ -2416,3 +2416,40 @@ builder.Services.AddReverseProxy()
 var app = builder.Build();
 app.MapReverseProxy();
 app.Run();
+
+#!markdown
+
+#### Clean Coding - Early return principle
+One of the fundamental principles of clean code is the "early return" principle. This principle suggests that you should exit a function as soon as the necessary conditions are met, rather than creating layers of nested IF statements.
+code source: https://www.youtube.com/shorts/lHvozJj27rs
+
+#!csharp
+
+public sealed class FollowerService(
+    IFollowerRepository followerRepository,
+    IDateTimeProvider dateTimeProvider) : IFollowerService
+{
+    public async Task<Result<Follower>> StartFollowingAsync(
+        User user, 
+        User followed, 
+        CancellationToken cancellationToken)
+    {
+        if (user.Id == followed.Id)
+        {
+            return Result.Failure<Follower>(FollowerErrors.SameUser);
+        }
+
+        if (!followed.HasPublicProfile)
+        {
+            return Result.Failure<Follower>(FollowerErrors.PrivateProfile);
+        }
+
+        if (await followerRepository.IsAlreadyFollowingAsync(user.Id, followed.Id, cancellationToken))
+        {
+            return Result.Failure<Follower>(FollowerErrors.AlreadyFollowing);
+        }
+
+        var follower = Follower.Create(user.Id, followed.Id, dateTimeProvider.Now);
+        return follower;
+    }
+}
