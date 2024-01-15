@@ -73,3 +73,23 @@ public class SqlHealthCheck(DbConnectionFactory dbConnectionFactory) : IHealthCh
         }
     }
 }
+
+#!markdown
+
+#### Schedule Background Tasks with .NET 8
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.hostoptions?view=dotnet-plat-ext-8.0
+code source: https://www.youtube.com/shorts/n4tzpRB2lzc
+
+#!csharp
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<BlobService>();
+builder.Services.AddHostedService<ServerTimeNotifier>();
+
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.ServicesStartConcurrently = true;
+    options.ServicesStopConcurrently = true;
+});
