@@ -145,3 +145,24 @@ https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-12#default-lamb
 
 var increment = (int value, int inc = 1) => value + inc;
 Console.WriteLine(increment(10, 2));
+
+#!markdown
+
+#### Primary constructors - Dependency injection
+https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/primary-constructors
+
+#!csharp
+
+public interface IService
+{
+    Distance GetDistance();
+}
+
+public class ExampleController(IService service) : ControllerBase
+{
+    [HttpGet]
+    public ActionResult<Distance> Get()
+    {
+        return service.GetDistance();
+    }
+}
