@@ -93,3 +93,41 @@ builder.Services.Configure<HostOptions>(options =>
     options.ServicesStartConcurrently = true;
     options.ServicesStopConcurrently = true;
 });
+
+#!markdown
+
+#### API versioning
+sources: https://www.milanjovanovic.tech/blog/api-versioning-in-aspnetcore, https://github.com/dotnet/aspnet-api-versioning/wiki
+code source: https://www.youtube.com/shorts/zOW6vn1vMl4
+
+#!csharp
+
+private static void AddApiVersioning(this IServiceCollection services)
+{
+    services.AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
+        
+    })
+    .AddMvc()
+    .AddApiExplorer(options => 
+    {
+        options.GroupNameFormat = "'v'V";
+        options.SubstituteApiVersionInUrl = true;
+    });
+}
+
+// controller
+[ApiController]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/[controller]")]
+public class ValuesController : ControllerBase
+{
+    [HttpGet]
+    public IEnumerable<string> Get()
+    {
+        return new string[] { "value1", "value2" };
+    }
+}
