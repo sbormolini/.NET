@@ -269,3 +269,42 @@ app.MapGet("products/{id}", async (int id, ApplicaitonDbContext context, IDistri
         Results.Ok(product) : 
         Results.NotFound();
 })
+
+#!markdown
+
+#### Minimal API versioning
+code source: https://www.youtube.com/shorts/E03eWTOC2bY
+
+#!csharp
+
+// Program.cs
+var builder = WebApplication.CreateBuiler(args);
+
+var app = builder.Build();
+
+app.UseHttpsRedirections();
+
+app.MapHealthCheck("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.UseRequestContextLogging();
+
+app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
+
+ApiVersionSet apiVersionSet = app.NewApiVersionSet()
+    .HasApiVersion(new ApiVersion(1))
+    .ReportApiVersions()
+    .Build();
+
+RouteGroupBuilder versionedGroup = app
+    .MapGroup("/api/v{version:apiVersion}")
+    .WithApiVersioning(apiVersionSet);
+
+versionedGroup.MapUserEndpoints();
+versionedGroup.MapWorkoutEndpoints();
+
+app.Run();
