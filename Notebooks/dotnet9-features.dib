@@ -1,0 +1,39 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"languageName":"csharp","name":"csharp"}]}}
+
+#!markdown
+
+## What's new in .NET 9
+https://learn.microsoft.com/en-us/dotnet/
+https://github.com/dotnet/aspnetcore/milestone/268
+
+#!markdown
+
+#### New LINQ Methods
+https://borakasmer.medium.com/linq-query-features-with-net-9-alpha-d8f74de93f4f
+https://www.youtube.com/watch?v=l5RA_x-WbC8
+
+#!csharp
+
+// code source https://borakasmer.medium.com/linq-query-features-with-net-9-alpha-d8f74de93f4f
+// .net 8
+var ordersCount = dbContext.Orders
+    .GroupBy(order => order.CustomerId)
+    .Select(group => new { Customer = group.Key, Count = group.Count() });
+
+foreach (var order in ordersCount)
+{
+    Console.WriteLine($"Customer: {order.Customer}, Count: {order.Count}");
+}
+
+// .net 9 
+var data = dbContext.Orders
+    .OrderBy(o => o.CustomerId)
+    .ToList()
+    .CountBy(order => order.CustomerId);
+
+foreach (var order in data)
+{
+    Console.WriteLine($"Customer: {order.Key}, Count: {order.Value}");
+}
